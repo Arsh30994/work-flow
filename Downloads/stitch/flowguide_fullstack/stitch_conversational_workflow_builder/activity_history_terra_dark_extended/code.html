@@ -1,0 +1,468 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Execution History | FlowGuide</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Theme Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#2e3131",
+                    "on-primary-fixed-variant": "#a7cbeb",
+                    "on-secondary-container": "#c9e8cb",
+                    "primary-fixed": "#3c5f7b",
+                    "node-border": "#42474d",
+                    "canvas-bg": "#191c1d",
+                    "sage-muted": "#A3B8A5",
+                    "warm-sand": "#F2E8DF",
+                    "on-primary-container": "#fcfcff",
+                    "inverse-on-surface": "#191c1d",
+                    "on-background": "#eff1f1",
+                    "surface-bright": "#2e3131",
+                    "tertiary-container": "#9b6a35",
+                    "secondary-fixed": "#334d38",
+                    "on-primary-fixed": "#cbe6ff",
+                    "on-tertiary-container": "#ffdcbd",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed": "#7f521f",
+                    "on-surface": "#eff1f1",
+                    "on-secondary-fixed-variant": "#cceace",
+                    "on-tertiary": "#4a2800",
+                    "primary-fixed-dim": "#3c5f7b",
+                    "on-tertiary-fixed-variant": "#f7bb7e",
+                    "primary-container": "#3c5f7b",
+                    "surface": "#191c1d",
+                    "surface-container-lowest": "#141718",
+                    "error-container": "#93000a",
+                    "primary": "#a7cbeb",
+                    "surface-container-highest": "#42474d",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-high": "#383b3b",
+                    "secondary-container": "#334d38",
+                    "surface-tint": "#a7cbeb",
+                    "inverse-primary": "#3f627e",
+                    "on-primary": "#003350",
+                    "secondary": "#b0ceb2",
+                    "inverse-surface": "#eff1f1",
+                    "tertiary": "#f7bb7e",
+                    "on-surface-variant": "#c2c7ce",
+                    "on-tertiary-fixed": "#ffdcbd",
+                    "secondary-fixed-dim": "#4a654e",
+                    "outline-variant": "#42474d",
+                    "outline": "#8c9198",
+                    "blue-slate": "#4A667E",
+                    "on-secondary": "#1a3623",
+                    "on-error": "#690005",
+                    "surface-dim": "#191c1d",
+                    "background": "#191c1d",
+                    "on-secondary-fixed": "#cceace",
+                    "surface-variant": "#42474d",
+                    "tertiary-fixed-dim": "#7f521f",
+                    "surface-container-low": "#222525"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.75rem",
+                    "xl": "1rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "max-content-width": "1440px",
+                    "sidebar-width": "320px",
+                    "unit": "8px",
+                    "gutter": "24px",
+                    "margin-desktop": "40px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "title-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #191c1d;
+            color: #eff1f1;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .history-card {
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .history-card:hover {
+            transform: translateY(-2px);
+            background-color: #2e3131;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest/80 sticky top-0 z-50 backdrop-blur-md border-b border-node-border">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-max-content-width mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-headline-lg text-headline-lg text-primary font-bold">FlowGuide</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Workflows</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Library</a>
+<a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary" href="#">History</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-node-border">
+<span class="material-symbols-outlined text-outline mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-md w-48 text-on-surface placeholder-outline" placeholder="Search logs..." type="text">
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container p-2 rounded-full transition-colors" data-icon="help">help</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container p-2 rounded-full transition-colors relative" data-icon="notifications">
+                    notifications
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface-container-lowest"></span>
+</button>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-primary-fixed cursor-pointer">
+<img alt="User Profile" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApSCufz00_-83hr84u_YtFS2UyB43wsco3WZ4iWXS-WvXohpvn5Ug6bnOvQGTbfJEUziIIGLws47tbIIu6lwSkWyZcxy1Z0btie1W2LvFogvz3i6AhY9Erz2_ysFFrl_lpQXDr8-GCKgZr202My77sHPDNfa7Ty-DT5sjga876aVIWIQyKlAfi088wBIyjnVQR0lowMs2qxp0UtVp6d0J0ZAnok3csEQq3Gt81YXFL0oZZH8Te4zIPdQ">
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-max-content-width mx-auto px-margin-desktop py-12">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6 animate-fade-in-up">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-background mb-2">Execution History</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">A peaceful overview of your automated assistants at work. Review successful journeys and refine your steps.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 bg-surface-container-low border border-node-border px-5 py-2.5 rounded-xl font-label-md text-label-md text-on-surface hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="filter_list">filter_list</span>
+                    All Status
+                </button>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-6 py-2.5 rounded-xl font-label-md text-label-md shadow-sm hover:brightness-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+                    Export Log
+                </button>
+</div>
+</div>
+<!-- Bento Grid / History Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 animate-fade-in-up">
+<!-- Statistics Sidebar -->
+<div class="lg:col-span-3 space-y-6">
+<div class="bg-surface-container-low p-6 rounded-3xl border border-node-border hover-lift">
+<div class="flex items-center justify-between mb-4">
+<span class="text-label-md font-label-md text-on-surface-variant">Weekly Health</span>
+<span class="text-secondary font-bold text-label-sm">98.2%</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden mb-6">
+<div class="h-full bg-secondary-container w-[98.2%]"></div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-label-md text-on-surface-variant">Success</span>
+</div>
+<span class="font-bold text-on-surface">1,248</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+<span class="text-label-md text-on-surface-variant">Neutral</span>
+</div>
+<span class="font-bold text-on-surface">42</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<span class="text-label-md text-on-surface-variant">Failed</span>
+</div>
+<span class="font-bold text-on-surface">2</span>
+</div>
+</div>
+</div>
+<div class="bg-tertiary-container/10 p-6 rounded-3xl border border-tertiary-container/30 relative overflow-hidden hover-lift">
+<div class="relative z-10">
+<h4 class="font-title-md text-title-md text-tertiary mb-2">The Guide</h4>
+<p class="text-label-md text-on-surface-variant mb-4">"Everything looks smooth today. Your Email-to-CRM workflow is your busiest helper!"</p>
+<button class="text-tertiary font-bold text-label-sm flex items-center gap-1 hover:underline">
+                            Chat with AI <span class="material-symbols-outlined text-[16px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-tertiary/5 text-[100px]" data-icon="auto_awesome">auto_awesome</span>
+</div>
+</div>
+<!-- Execution List -->
+<div class="lg:col-span-9 space-y-4">
+<!-- History Entry 1: Success -->
+<div class="history-card bg-surface-container-lowest p-5 rounded-2xl border border-node-border flex items-center gap-6 group">
+<div class="flex-shrink-0 w-12 h-12 rounded-xl bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[28px]" data-icon="check_circle">check_circle</span>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-3 mb-1">
+<h3 class="font-title-md text-on-surface">Email Outreach Sync</h3>
+<span class="px-2 py-0.5 rounded bg-surface-container text-[10px] uppercase tracking-wider font-bold text-outline">Trigger: Webhook</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant text-label-md">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 2 mins ago</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="data_usage">data_usage</span> 4 Steps • 1.2s duration</span>
+</div>
+</div>
+<div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant transition-colors flex items-center gap-2 px-4 border border-transparent hover:border-node-border">
+<span class="material-symbols-outlined text-[20px]" data-icon="refresh">refresh</span>
+<span class="text-label-md">Re-run</span>
+</button>
+<button class="bg-surface-container text-primary p-2 px-4 rounded-lg font-label-md hover:bg-primary-container hover:text-white transition-all">
+                            View Details
+                        </button>
+</div>
+</div>
+<!-- History Entry 2: Neutral / Paused -->
+<div class="history-card bg-surface-container-lowest p-5 rounded-2xl border border-node-border flex items-center gap-6 group">
+<div class="flex-shrink-0 w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[28px]" data-icon="pause_circle">pause_circle</span>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-3 mb-1">
+<h3 class="font-title-md text-on-surface">Weekly Report Generator</h3>
+<span class="px-2 py-0.5 rounded bg-surface-container text-[10px] uppercase tracking-wider font-bold text-outline">Trigger: Schedule</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant text-label-md">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 45 mins ago</span>
+<span class="flex items-center gap-1 text-secondary font-semibold bg-secondary-container/20 px-2 rounded">Waiting for manual approval</span>
+</div>
+</div>
+<div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="bg-primary text-on-primary p-2 px-6 rounded-lg font-label-md shadow-sm hover:brightness-110 transition-all">
+                            Approve Step
+                        </button>
+<button class="bg-surface-container text-primary p-2 px-4 rounded-lg font-label-md hover:bg-primary-container hover:text-white transition-all">
+                            Details
+                        </button>
+</div>
+</div>
+<!-- History Entry 3: Success -->
+<div class="history-card bg-surface-container-lowest p-5 rounded-2xl border border-node-border flex items-center gap-6 group">
+<div class="flex-shrink-0 w-12 h-12 rounded-xl bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[28px]" data-icon="check_circle">check_circle</span>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-3 mb-1">
+<h3 class="font-title-md text-on-surface">Customer Onboarding Flow</h3>
+<span class="px-2 py-0.5 rounded bg-surface-container text-[10px] uppercase tracking-wider font-bold text-outline">Trigger: Stripe</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant text-label-md">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 3 hours ago</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="data_usage">data_usage</span> 12 Steps • 4.5s duration</span>
+</div>
+</div>
+<div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant transition-colors flex items-center gap-2 px-4">
+<span class="material-symbols-outlined text-[20px]" data-icon="refresh">refresh</span>
+<span class="text-label-md">Re-run</span>
+</button>
+<button class="bg-surface-container text-primary p-2 px-4 rounded-lg font-label-md hover:bg-primary-container hover:text-white transition-all">
+                            View Details
+                        </button>
+</div>
+</div>
+<!-- Pagination -->
+<div class="pt-8 text-center">
+<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-surface-container-low mb-3">
+<span class="material-symbols-outlined text-outline text-[24px]" data-icon="history">history</span>
+</div>
+<p class="text-on-surface-variant font-body-md">Showing the last 50 executions from your active workflows.</p>
+<button class="mt-4 text-primary font-bold text-label-md hover:underline hover:text-primary-fixed">Load older history</button>
+</div>
+</div>
+</div>
+<!-- Deep Performance Analysis Section -->
+<section class="mt-20 animate-fade-in-up">
+<div class="flex flex-col gap-8">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-lg text-headline-lg text-on-background">Deep Performance Analysis</h2>
+<div class="flex items-center gap-4">
+<span class="px-4 py-1.5 rounded-full bg-secondary-container/10 border border-secondary-container/30 text-secondary font-label-md">Last 30 Days</span>
+</div>
+</div>
+<!-- Hero Backdrop Summary -->
+<div class="relative w-full rounded-[2rem] overflow-hidden min-h-[400px] flex items-center p-12 border border-node-border group">
+<!-- Background Image -->
+<div class="absolute inset-0 z-0">
+<img alt="Deep Performance Background" class="w-full h-full object-cover brightness-50 transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhDhKlowJVnI_vkPKn2RrZVVpunSYD-SrvqrBtqpBJ0JerMQ6SX21d66TD5MDUnjSMlsoRYbc3waCfYI5LkwtQ0kCimyOJrfcD2PJvBDi1BJGcq6m7uHuQXX2Q88YYGsjHzZCNZfUHV8qF8hmdn4bBLNVS6WDGsQ8uiQ0RN_nNPFysF-qWyIrbSpg1yCtIK5cKRPhlsMonkJhA6iuElXYZgt7c8xwlFQEkR-Q8YdUzN93PmZv2r8b9Rg">
+<div class="absolute inset-0 bg-gradient-to-r from-canvas-bg via-canvas-bg/60 to-transparent"></div>
+</div>
+<!-- Content Overlay -->
+<div class="relative z-10 max-w-xl">
+<span class="inline-block px-3 py-1 rounded bg-primary/20 text-primary-fixed-dim font-label-sm uppercase tracking-widest mb-6">Monthly Impact Summary</span>
+<h3 class="font-display-lg text-display-lg text-white mb-6">14,284 Successful Journeys Completed</h3>
+<p class="font-body-lg text-on-surface-variant mb-8 leading-relaxed">
+                            Your automated ecosystem has reached a peak efficiency of 99.4% this month. By handling repetitive tasks, your guides have saved approximately 420 human hours across 12 active connections.
+                        </p>
+<div class="grid grid-cols-2 gap-8 mb-8">
+<div>
+<div class="text-[32px] font-bold text-secondary mb-1">99.4%</div>
+<div class="text-label-md text-outline">Success Rate</div>
+</div>
+<div>
+<div class="text-[32px] font-bold text-tertiary mb-1">420h</div>
+<div class="text-label-md text-outline">Time Reclaimed</div>
+</div>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3.5 rounded-xl font-label-md shadow-lg hover:brightness-110 transition-all flex items-center gap-3">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                            Download Full Analysis
+                        </button>
+</div>
+<!-- Floating Stats Cards -->
+<div class="absolute right-12 hidden lg:flex flex-col gap-4">
+<div class="bg-surface-container-lowest/40 backdrop-blur-md p-6 rounded-2xl border border-white/10 w-64 translate-y-[-20px]">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-secondary" data-icon="trending_up">trending_up</span>
+<span class="text-label-md font-bold text-white">Top Workflow</span>
+</div>
+<p class="text-body-md text-on-surface-variant">Email-to-CRM Sync</p>
+<p class="text-label-sm text-outline mt-1">5.2k executions</p>
+</div>
+<div class="bg-surface-container-lowest/40 backdrop-blur-md p-6 rounded-2xl border border-white/10 w-64 translate-x-[-40px]">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary" data-icon="speed">speed</span>
+<span class="text-label-md font-bold text-white">Avg. Speed</span>
+</div>
+<p class="text-body-md text-on-surface-variant">0.85s per step</p>
+<p class="text-label-sm text-outline mt-1">12% faster than avg</p>
+</div>
+</div>
+</div>
+<!-- Detailed Metrics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-container-low p-8 rounded-3xl border border-node-border hover-lift">
+<h4 class="font-title-md text-on-surface mb-4">Error Resolution</h4>
+<div class="flex items-end gap-2 mb-4">
+<span class="text-headline-lg text-error">0.06%</span>
+<span class="text-label-md text-outline pb-1.5">failure rate</span>
+</div>
+<p class="text-label-md text-on-surface-variant">Most errors were self-corrected by automatic retry logic in the Stripe-Onboarding flow.</p>
+</div>
+<div class="bg-surface-container-low p-8 rounded-3xl border border-node-border hover-lift">
+<h4 class="font-title-md text-on-surface mb-4">Active Connectors</h4>
+<div class="flex items-end gap-2 mb-4">
+<span class="text-headline-lg text-primary">12</span>
+<span class="text-label-md text-outline pb-1.5">endpoints</span>
+</div>
+<p class="text-label-md text-on-surface-variant">Your Webhook and Google Sheets connections are the most stable pathways in your current setup.</p>
+</div>
+<div class="bg-surface-container-low p-8 rounded-3xl border border-node-border hover-lift">
+<h4 class="font-title-md text-on-surface mb-4">AI Assistance</h4>
+<div class="flex items-end gap-2 mb-4">
+<span class="text-headline-lg text-tertiary">84</span>
+<span class="text-label-md text-outline pb-1.5">decisions made</span>
+</div>
+<p class="text-label-md text-on-surface-variant">The Guide successfully mediated 84 data mapping conflicts without requiring manual input.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- SideNavBar - Docked Right -->
+<aside class="fixed right-0 top-0 h-full w-[320px] bg-surface-container-lowest border-l border-node-border flex flex-col z-40 hidden xl:flex">
+<!-- Sidebar Header -->
+<div class="p-6 pb-4 border-b border-node-border/50"><button id="close-sidebar" class="absolute top-4 right-4 p-2 rounded-full hover:bg-surface-container text-on-surface-variant transition-colors"><span class="material-symbols-outlined">close</span></button>
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="draw">draw</span>
+</div>
+<div>
+<h2 class="font-title-md text-on-surface">The Guide</h2>
+<p class="text-[12px] text-on-surface-variant">Ready to help you build</p>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-2.5 rounded-xl font-label-md shadow-sm hover:brightness-110 active:translate-x-1 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="forum">forum</span>
+                Chat with AI
+            </button>
+</div>
+<!-- Sidebar Navigation -->
+<div class="flex-grow p-6 space-y-1">
+<a class="flex items-center gap-3 p-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="draw">draw</span>
+<span class="font-label-md">Builder</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome_motion">auto_awesome_motion</span>
+<span class="font-label-md">Templates</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span class="font-label-md">Connections</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="data_object">data_object</span>
+<span class="font-label-md">Variables</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md">Settings</span>
+</a>
+</div>
+<!-- Sidebar Footer -->
+<div class="p-6 mt-auto border-t border-node-border/50">
+<div class="space-y-1">
+<a class="flex items-center gap-3 p-2 rounded-lg text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="menu_book">menu_book</span>
+<span class="text-label-md">Documentation</span>
+</a>
+<a class="flex items-center gap-3 p-2 rounded-lg text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="support_agent">support_agent</span>
+<span class="text-label-md">Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Micro-interaction Script -->
+<script>
+        document.querySelectorAll('.history-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const iconContainer = card.querySelector('.flex-shrink-0');
+                if (iconContainer && iconContainer.classList.contains('bg-secondary-container/20')) {
+                    iconContainer.style.backgroundColor = 'rgba(51, 77, 56, 0.4)';
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                const iconContainer = card.querySelector('.flex-shrink-0');
+                if (iconContainer && iconContainer.classList.contains('bg-secondary-container/20')) {
+                    iconContainer.style.backgroundColor = 'rgba(51, 77, 56, 0.2)';
+                }
+            });
+        });
+    </script>
+
+
+<button id="open-sidebar" class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:brightness-110 transition-all z-50 hidden"><span class="material-symbols-outlined text-[28px]">chat</span></button><script>const sidebar = document.querySelector('aside'); const closeBtn = document.getElementById('close-sidebar'); const openBtn = document.getElementById('open-sidebar'); closeBtn.addEventListener('click', () => { sidebar.classList.add('hidden'); openBtn.classList.remove('hidden'); }); openBtn.addEventListener('click', () => { sidebar.classList.remove('hidden'); openBtn.classList.add('hidden'); });</script></body></html>

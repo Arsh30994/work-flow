@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-lowest": "#ffffff",
+            "secondary-container": "#c9e8cb",
+            "on-error-container": "#93000a",
+            "tertiary-fixed-dim": "#f7bb7e",
+            "primary-fixed": "#cbe6ff",
+            "on-primary-fixed": "#001e30",
+            "on-surface-variant": "#42474d",
+            "on-background": "#191c1d",
+            "surface-variant": "#e1e3e3",
+            "background": "#f8fafa",
+            "surface-container-low": "#f2f4f4",
+            "on-secondary-container": "#4e6952",
+            "primary-container": "#557895",
+            "error": "#ba1a1a",
+            "on-tertiary-fixed": "#2c1600",
+            "on-secondary-fixed-variant": "#334d38",
+            "on-error": "#ffffff",
+            "warm-sand": "#F2E8DF",
+            "surface-tint": "#3f627e",
+            "surface-bright": "#f8fafa",
+            "on-secondary-fixed": "#07200f",
+            "inverse-primary": "#a7cbeb",
+            "secondary": "#4a654e",
+            "blue-slate": "#4A667E",
+            "inverse-on-surface": "#eff1f1",
+            "on-tertiary": "#ffffff",
+            "sage-muted": "#A3B8A5",
+            "secondary-fixed-dim": "#b0ceb2",
+            "on-primary-fixed-variant": "#254a65",
+            "secondary-fixed": "#cceace",
+            "primary-fixed-dim": "#a7cbeb",
+            "on-tertiary-fixed-variant": "#663d0b",
+            "canvas-bg": "#FBFCFC",
+            "tertiary": "#7f521f",
+            "primary": "#3c5f7b",
+            "surface-container": "#eceeee",
+            "outline-variant": "#c2c7ce",
+            "on-tertiary-container": "#fffbff",
+            "error-container": "#ffdad6",
+            "inverse-surface": "#2e3131",
+            "outline": "#72787e",
+            "tertiary-container": "#9b6a35",
+            "on-primary": "#ffffff",
+            "on-surface": "#191c1d",
+            "surface": "#f8fafa",
+            "on-primary-container": "#fcfcff",
+            "surface-container-high": "#e6e8e9",
+            "surface-container-highest": "#e1e3e3",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed": "#ffdcbd",
+            "surface-dim": "#d8dada",
+            "node-border": "#E1E8ED"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "unit": "8px",
+            "gutter": "24px",
+            "sidebar-width": "320px",
+            "margin-mobile": "16px",
+            "margin-desktop": "40px",
+            "max-content-width": "1440px"
+          },
+          "fontFamily": {
+            "label-md": ["Inter"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "display-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+            "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+            "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .dark {
+      --tw-bg-opacity: 1;
+      background-color: #121412;
+    }
+    .dark .bg-surface-dim { background-color: #121412; }
+    .dark .bg-canvas-bg { background-color: #0a0c0a; }
+    .dark .bg-surface-container-low { background-color: #1a1c1a; }
+    .dark .bg-surface-container { background-color: #1e211f; }
+    .dark .bg-surface-container-lowest { background-color: #0f110f; }
+    .dark .text-on-surface { color: #e1e3e0; }
+    .dark .text-on-surface-variant { color: #c2c9c2; }
+    .dark .border-node-border { border-color: #313633; }
+    .dark .text-primary { color: #a7cbeb; }
+    .dark .bg-primary { background-color: #a7cbeb; color: #00344d; }
+    .dark .bg-secondary-container { background-color: #334d38; color: #cceace; }
+    .dark .text-on-secondary-container { color: #cceace; }
+    .dark .bg-warm-sand { background-color: #3d3834; }
+
+    .canvas-grid {
+      background-image: radial-gradient(circle, #313633 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+
+    .node-shadow {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .guide-sidebar {
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .guide-sidebar.closed {
+      transform: translateX(100%);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-up {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .chat-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .chat-scroll::-webkit-scrollbar-thumb {
+      background: #313633;
+      border-radius: 10px;
+    }
+
+    .hex-bg {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9l11-6.35 11 6.35v13.2l-11 6.35L3 31.1V17.9z' fill='%23313633' fill-opacity='0.2'/%3E%3C/svg%3E");
+    }
+  </style>
+</head>
+<body class="font-body-md text-on-surface bg-surface-dim">
+<!-- TopNavBar -->
+<header class="bg-surface-dim/90 backdrop-blur-md border-b border-node-border sticky top-0 z-50 transition-all duration-300">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-max-content-width mx-auto">
+<div class="flex items-center gap-12">
+<span class="font-headline-lg text-headline-lg text-primary font-bold tracking-tight">FlowGuide</span>
+<nav class="hidden md:flex items-center gap-8">
+<a class="relative group font-body-md text-body-md text-on-surface-variant hover:text-primary transition-all duration-300" href="#">
+            Dashboard
+            <span class="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-primary transition-all duration-300 ease-out group-hover:w-full group-hover:left-0"></span>
+</a>
+<a class="relative group font-body-md text-body-md text-primary font-bold transition-all duration-300" href="#">
+            Workflows
+            <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-primary shadow-[0_0_8px_rgba(167,203,235,0.6)]"></span>
+</a>
+<a class="relative group font-body-md text-body-md text-on-surface-variant hover:text-primary transition-all duration-300" href="#">
+            Library
+            <span class="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-primary transition-all duration-300 ease-out group-hover:w-full group-hover:left-0"></span>
+</a>
+<a class="relative group font-body-md text-body-md text-on-surface-variant hover:text-primary transition-all duration-300" href="#">
+            History
+            <span class="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-primary transition-all duration-300 ease-out group-hover:w-full group-hover:left-0"></span>
+</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-node-border focus-within:border-primary transition-colors">
+<span class="material-symbols-outlined text-outline text-[20px] mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-md p-0 w-48 text-on-surface placeholder:text-outline" placeholder="Search workflows..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors active:scale-90">help</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors relative active:scale-90">
+          notifications
+          <span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-node-border ml-2">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDx5to7qjUIvpUJqmFo-C2sgJ14iWlwLi6MxrmkRbe-bmj45x6v1VCCqBgybU8cODvqKqcMOywxYWD5DFtaqFhkN2aTCZuBolsGgpSR5hR8ME6kGojjFUHqSflaGXC58Hi83MAy05YIfQ1Fwnh8dRpqr9-eseMPYlOZtOhCUKrzo7dXL62pFcUlgVf8I2lfLTcKjBSU_qsd0pB8yqfFW21HS-Z-m9AL-UAbqRuczof4sYHW581n7tw_7w"/>
+</div>
+<button class="ml-2 bg-primary text-on-primary px-5 py-2 rounded-full font-label-md hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary/10">Create New</button>
+</div>
+</div>
+</header>
+<main class="relative">
+<div class="flex h-[calc(100vh-72px)] overflow-hidden">
+<!-- Workflow Canvas Area -->
+<div class="flex-grow relative canvas-grid bg-canvas-bg overflow-hidden cursor-grab active:cursor-grabbing transition-all duration-500" id="canvas">
+<div class="absolute inset-0 flex items-center justify-center -translate-x-[80px]" id="nodes-container">
+<div class="flex items-center gap-16 relative" id="nodes-wrapper">
+<!-- Trigger Node -->
+<div class="relative group animate-fade-in-up" style="animation-delay: 0.1s">
+<div class="w-[300px] bg-surface-container-lowest rounded-2xl border border-node-border node-shadow p-6 relative z-10 hover:border-primary/50 hover:scale-[1.02] transition-all cursor-pointer">
+<div class="absolute top-0 left-0 bottom-0 w-1.5 bg-secondary rounded-l-2xl"></div>
+<div class="flex items-center gap-4 mb-4">
+<div class="w-10 h-10 bg-secondary-container flex items-center justify-center rounded-xl text-on-secondary-container">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div>
+<span class="block text-[10px] font-bold text-outline uppercase tracking-widest">Trigger</span>
+<span class="font-title-md text-on-surface">New Email Arrives</span>
+</div>
+</div>
+<div class="space-y-2 p-3 bg-surface-container-low rounded-xl border border-node-border/50">
+<div class="flex justify-between items-center">
+<span class="text-[12px] text-on-surface-variant">Account:</span>
+<span class="text-[12px] text-on-surface font-medium">personal@email.com</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-[12px] text-on-surface-variant">Folder:</span>
+<span class="text-[12px] text-on-surface font-medium">Inbox</span>
+</div>
+</div>
+</div>
+<!-- Connector -->
+<div class="absolute top-1/2 left-full w-16 h-px bg-gradient-to-r from-node-border to-primary/30 z-0 -translate-y-1/2">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-primary/40"></div>
+</div>
+</div>
+<!-- Action Node -->
+<div class="relative group animate-fade-in-up" style="animation-delay: 0.3s">
+<div class="w-[300px] bg-surface-container-lowest rounded-2xl border border-node-border node-shadow p-6 relative z-10 hover:border-primary/50 hover:scale-[1.02] transition-all cursor-pointer">
+<div class="absolute top-0 left-0 bottom-0 w-1.5 bg-primary rounded-l-2xl"></div>
+<div class="flex items-center gap-4 mb-4">
+<div class="w-10 h-10 bg-primary/20 flex items-center justify-center rounded-xl text-primary">
+<span class="material-symbols-outlined">chat_bubble</span>
+</div>
+<div>
+<span class="block text-[10px] font-bold text-outline uppercase tracking-widest">Action</span>
+<span class="font-title-md text-on-surface">Slack Notification</span>
+</div>
+</div>
+<div class="space-y-2 p-3 bg-surface-container-low rounded-xl border border-node-border/50">
+<div class="flex justify-between items-center">
+<span class="text-[12px] text-on-surface-variant">Channel:</span>
+<span class="text-[12px] text-on-surface font-medium">#general</span>
+</div>
+<div class="flex flex-col gap-1 mt-1">
+<span class="text-[12px] text-on-surface-variant">Message:</span>
+<span class="text-[11px] text-on-surface bg-surface-container p-2 rounded-lg italic">"You have new mail from {{sender}}"</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Add Button -->
+<button class="w-12 h-12 bg-surface-container-lowest rounded-full border border-dashed border-outline-variant flex items-center justify-center text-outline hover:text-primary hover:border-primary hover:bg-surface-container-low transition-all shadow-sm active:scale-90 group animate-fade-in-up" style="animation-delay: 0.5s">
+<span class="material-symbols-outlined group-hover:rotate-90 transition-transform">add</span>
+</button>
+</div>
+</div>
+<!-- Canvas Controls -->
+<div class="absolute bottom-8 left-8 flex gap-3">
+<div class="flex bg-surface-container-lowest rounded-2xl shadow-2xl border border-node-border p-1.5">
+<button class="p-2 hover:bg-surface-container-low rounded-xl text-on-surface-variant transition-colors active:scale-90">
+<span class="material-symbols-outlined">zoom_in</span>
+</button>
+<button class="p-2 hover:bg-surface-container-low rounded-xl text-on-surface-variant transition-colors active:scale-90">
+<span class="material-symbols-outlined">zoom_out</span>
+</button>
+<div class="w-px bg-node-border mx-1"></div>
+<button class="p-2 hover:bg-surface-container-low rounded-xl text-on-surface-variant transition-colors active:scale-90">
+<span class="material-symbols-outlined">center_focus_strong</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: The Guide -->
+<aside class="guide-sidebar fixed right-0 top-0 h-full w-[320px] bg-surface-container-low flex flex-col z-40 border-l border-node-border shadow-2xl pt-[72px] transition-all duration-500" id="guide-sidebar">
+<!-- Sidebar Header -->
+<div class="p-6 border-b border-node-border relative">
+<button class="absolute top-4 right-4 text-outline hover:text-primary hover:bg-surface-container-high w-8 h-8 rounded-full flex items-center justify-center transition-all active:scale-90" id="close-guide-btn">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+<div class="flex items-center gap-4 mb-5">
+<div class="relative">
+<div class="w-12 h-12 rounded-2xl overflow-hidden bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[32px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-surface-container-low rounded-full"></div>
+</div>
+<div>
+<h2 class="font-bold text-on-surface leading-tight">The Guide</h2>
+<p class="text-label-sm text-outline">Ready to build?</p>
+</div>
+</div>
+<button class="w-full py-3 bg-primary text-on-primary rounded-2xl font-label-md flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-95 shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+            Chat with AI
+          </button>
+</div>
+<!-- Building Blocks Menu Area -->
+<div class="flex-grow overflow-y-auto chat-scroll p-6">
+<div class="mb-6 animate-fade-in-up">
+<div class="max-w-[90%] bg-warm-sand p-4 rounded-2xl rounded-tl-none border border-node-border/20 shadow-sm">
+<p class="text-[14px] text-on-surface leading-relaxed">I've mapped out the basic logic. Would you like me to add a filter for important senders?</p>
+</div>
+<p class="text-[10px] text-outline mt-2 ml-1">The Guide • 2m ago</p>
+</div>
+<div class="space-y-6">
+<h3 class="text-[10px] font-bold text-outline uppercase tracking-[2px] px-2">Building Blocks</h3>
+<div class="grid grid-cols-1 gap-2" id="draggable-items">
+<!-- AI Logic -->
+<div class="group flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-xl cursor-grab active:cursor-grabbing hover:brightness-110 transition-all border border-transparent hover:border-secondary/30" draggable="true" ondragstart="handleDragStart(event, 'AI Logic')">
+<span class="material-symbols-outlined text-[20px]">psychology</span>
+<span class="font-label-md">Builder (AI Logic)</span>
+</div>
+<!-- Regular Blocks -->
+<div class="group flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl cursor-grab active:cursor-grabbing transition-all" draggable="true" ondragstart="handleDragStart(event, 'Templates')">
+<span class="material-symbols-outlined text-[20px]">auto_awesome_motion</span>
+<span class="font-label-md">Templates</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl cursor-grab active:cursor-grabbing transition-all" draggable="true" ondragstart="handleDragStart(event, 'Connections')">
+<span class="material-symbols-outlined text-[20px]">hub</span>
+<span class="font-label-md">Connections</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl cursor-grab active:cursor-grabbing transition-all" draggable="true" ondragstart="handleDragStart(event, 'Variables')">
+<span class="material-symbols-outlined text-[20px]">data_object</span>
+<span class="font-label-md">Variables</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl cursor-grab active:cursor-grabbing transition-all" draggable="true" ondragstart="handleDragStart(event, 'Settings')">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-label-md">Settings</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl cursor-grab active:cursor-grabbing transition-all" draggable="true" ondragstart="handleDragStart(event, 'Condition')">
+<span class="material-symbols-outlined text-[20px]">call_split</span>
+<span class="font-label-md">Condition</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl cursor-grab active:cursor-grabbing transition-all" draggable="true" ondragstart="handleDragStart(event, 'Data Transformer')">
+<span class="material-symbols-outlined text-[20px]">auto_fix_high</span>
+<span class="font-label-md">Data Transformer</span>
+</div>
+<!-- AI Agent (Pro) -->
+<div class="group flex items-center justify-between px-4 py-3 bg-surface-container-high border border-primary/30 text-on-surface rounded-xl cursor-grab active:cursor-grabbing hover:scale-[1.02] hover:border-primary transition-all" draggable="true" ondragstart="handleDragStart(event, 'AI Agent')">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">neurology</span>
+<span class="font-label-md font-bold">AI Agent</span>
+</div>
+<span class="text-[10px] bg-primary/20 text-primary px-1.5 py-0.5 rounded font-bold uppercase">Pro</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl cursor-grab active:cursor-grabbing transition-all" draggable="true" ondragstart="handleDragStart(event, 'Webhook')">
+<span class="material-symbols-outlined text-[20px]">webhook</span>
+<span class="font-label-md">Webhook</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl cursor-grab active:cursor-grabbing transition-all" draggable="true" ondragstart="handleDragStart(event, 'Database')">
+<span class="material-symbols-outlined text-[20px]">storage</span>
+<span class="font-label-md">Database</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl cursor-grab active:cursor-grabbing transition-all" draggable="true" ondragstart="handleDragStart(event, 'Social Media')">
+<span class="material-symbols-outlined text-[20px]">public</span>
+<span class="font-label-md">Social Media</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar Footer -->
+<div class="p-6 border-t border-node-border bg-surface-container">
+<div class="relative">
+<textarea class="w-full bg-surface-container-lowest border border-node-border rounded-2xl p-4 pr-12 focus:border-primary focus:ring-0 text-[14px] text-on-surface resize-none h-24 placeholder:text-outline/50" placeholder="Ask the Guide to add a step..."></textarea>
+<button class="absolute bottom-3 right-3 text-primary hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+<div class="mt-4 flex justify-between">
+<button class="text-label-sm text-outline hover:text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">menu_book</span> Docs
+            </button>
+<button class="text-label-sm text-outline hover:text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">support_agent</span> Support
+            </button>
+</div>
+</div>
+</aside>
+<!-- Floating Button (When Sidebar Closed) -->
+<button class="fixed right-8 bottom-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-30 hidden" id="open-guide-btn">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</button>
+</div>
+<!-- Peace of Mind Section -->
+<section class="relative py-24 px-margin-desktop bg-surface-dim border-t border-node-border overflow-hidden pr-0 transition-all duration-500 md:pr-[320px]" id="peace-of-mind">
+<div class="hex-bg absolute inset-0 opacity-10 pointer-events-none"></div>
+<div class="max-w-max-content-width mx-auto relative z-10">
+<div class="text-center mb-16 animate-fade-in-up">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Built for Peace of Mind</h2>
+<p class="text-on-surface-variant max-w-2xl mx-auto">Focus on what matters most while FlowGuide handles the complexity behind the scenes.</p>
+</div>
+<div class="relative rounded-[2.5rem] overflow-hidden mb-20 shadow-2xl border border-node-border aspect-[21/9] animate-fade-in-up" style="animation-delay: 0.2s">
+<img alt="Serene office" class="w-full h-full object-cover brightness-75 hover:scale-105 transition-transform duration-[2s]" src="https://lh3.googleusercontent.com/aida/AP1WRLvR7PPRnLniZkLwFU4rQFyE7DVbZMWyDm9WbBo-1dSjIqm5fpjZ0Hto7pI3eJVNlf1Ck9tyZqRHfTa9xr4_s44dPxnQkQGsJHGO6CR0KWgun3YTfBiRqa5zQwQiVh94oA-0i87LJJsfO59GGvdJp5vUcEvVUCpnpgWLstTkrqhUMKwyMO71yqaeiLFHBHKJBHcj4VdV-olhiG-wBsmJunTxNhG_RgWOyzqGPBkgckECjUb0OyJ1FfELLnsQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-transparent"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Feature 1 -->
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] border border-node-border hover:border-secondary transition-all group cursor-pointer animate-fade-in-up" style="animation-delay: 0.3s">
+<div class="w-12 h-12 bg-secondary/10 rounded-2xl flex items-center justify-center text-secondary mb-6 group-hover:scale-110 group-hover:bg-secondary/20 transition-all">
+<span class="material-symbols-outlined">eco</span>
+</div>
+<h3 class="font-title-md text-on-surface mb-3">Organic Scaling</h3>
+<p class="text-on-surface-variant text-[14px] leading-relaxed">Grow your operations naturally. Our infrastructure adapts to your workflow complexity without friction.</p>
+</div>
+<!-- Feature 2 -->
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] border border-node-border hover:border-primary transition-all group cursor-pointer animate-fade-in-up" style="animation-delay: 0.4s">
+<div class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined">energy_savings_leaf</span>
+</div>
+<h3 class="font-title-md text-on-surface mb-3">Sustainable Automation</h3>
+<p class="text-on-surface-variant text-[14px] leading-relaxed">Efficient logic that preserves your most valuable resource: time. Automate once, thrive indefinitely.</p>
+</div>
+<!-- Feature 3 -->
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] border border-node-border hover:border-tertiary transition-all group cursor-pointer animate-fade-in-up" style="animation-delay: 0.5s">
+<div class="w-12 h-12 bg-tertiary/10 rounded-2xl flex items-center justify-center text-tertiary mb-6 group-hover:scale-110 group-hover:bg-tertiary/20 transition-all">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<h3 class="font-title-md text-on-surface mb-3">Rooted Support</h3>
+<p class="text-on-surface-variant text-[14px] leading-relaxed">Human-centric assistance and deep documentation to ensure you're never building in the dark.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Toast Feedback -->
+<div class="fixed bottom-10 left-1/2 -translate-x-1/2 md:-translate-x-[calc(50%+160px)] bg-secondary-container text-on-secondary-container px-6 py-4 rounded-2xl shadow-2xl border border-secondary/30 flex items-center gap-3 opacity-0 translate-y-10 transition-all duration-500 pointer-events-none z-[60]" id="toast">
+<span class="material-symbols-outlined text-[20px]" id="toast-icon">check_circle</span>
+<span class="font-label-md" id="toast-message">Workflow saved successfully</span>
+</div>
+<script>
+    // --- Sidebar Toggle Logic ---
+    const guideSidebar = document.getElementById('guide-sidebar');
+    const closeGuideBtn = document.getElementById('close-guide-btn');
+    const openGuideBtn = document.getElementById('open-guide-btn');
+    const peaceOfMindSection = document.getElementById('peace-of-mind');
+    const canvas = document.getElementById('canvas');
+
+    const toggleSidebar = (show) => {
+      if (show) {
+        guideSidebar.classList.remove('closed');
+        openGuideBtn.classList.add('hidden');
+        peaceOfMindSection.classList.add('md:pr-[320px]');
+      } else {
+        guideSidebar.classList.add('closed');
+        openGuideBtn.classList.remove('hidden');
+        peaceOfMindSection.classList.remove('md:pr-[320px]');
+      }
+    };
+
+    closeGuideBtn.addEventListener('click', () => toggleSidebar(false));
+    openGuideBtn.addEventListener('click', () => toggleSidebar(true));
+
+    // --- Drag and Drop Logic ---
+    const nodesWrapper = document.getElementById('nodes-wrapper');
+    const addStepBtn = document.querySelector('button.w-12.h-12');
+
+    function handleDragStart(e, type) {
+      e.dataTransfer.setData('text/plain', type);
+      e.dataTransfer.effectAllowed = 'move';
+    }
+
+    canvas.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      canvas.classList.add('brightness-[1.15]');
+    });
+
+    canvas.addEventListener('dragleave', () => {
+      canvas.classList.remove('brightness-[1.15]');
+    });
+
+    canvas.addEventListener('drop', (e) => {
+      e.preventDefault();
+      canvas.classList.remove('brightness-[1.15]');
+      const type = e.dataTransfer.getData('text/plain');
+      createNewNode(type);
+    });
+
+    function createNewNode(title) {
+      const newNode = document.createElement('div');
+      newNode.className = 'relative group animate-fade-in-up';
+      
+      const isPro = title === 'AI Agent';
+      const colorClass = isPro ? 'bg-primary' : 'bg-tertiary';
+      const icon = title.includes('Data') ? 'auto_fix_high' : title.includes('Condition') ? 'call_split' : 'extension';
+
+      newNode.innerHTML = `
+        <div class="w-[300px] bg-surface-container-lowest rounded-2xl border border-node-border node-shadow p-6 relative z-10 hover:border-primary/50 hover:scale-[1.02] transition-all cursor-pointer">
+          <div class="absolute top-0 left-0 bottom-0 w-1.5 ${colorClass} rounded-l-2xl"></div>
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-10 h-10 ${isPro ? 'bg-primary/20 text-primary' : 'bg-tertiary/20 text-tertiary'} flex items-center justify-center rounded-xl">
+              <span class="material-symbols-outlined">${icon}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-outline uppercase tracking-widest">Step</span>
+              <span class="font-title-md text-on-surface">${title}</span>
+            </div>
+          </div>
+          <div class="p-3 bg-surface-container-low rounded-xl border border-node-border/50">
+            <p class="text-[12px] text-on-surface-variant italic">Configuration required...</p>
+          </div>
+        </div>
+        <div class="absolute top-1/2 left-full w-16 h-px bg-gradient-to-r from-node-border to-primary/30 z-0 -translate-y-1/2">
+          <div class="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-primary/40"></div>
+        </div>
+      `;
+
+      nodesWrapper.insertBefore(newNode, addStepBtn);
+      triggerToast(`Added ${title} to workflow`, 'add_circle');
+    }
+
+    // --- Toast Logic ---
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toast-message');
+    const toastIcon = document.getElementById('toast-icon');
+
+    const triggerToast = (message, icon = 'check_circle') => {
+      toastMessage.innerText = message;
+      toastIcon.innerText = icon;
+      toast.classList.remove('opacity-0', 'translate-y-10');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-10');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 3000);
+    };
+
+    // Generic interaction feedback
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.innerText.includes('Create')) triggerToast('Opening builder...');
+      });
+    });
+  </script>
+</body></html>
