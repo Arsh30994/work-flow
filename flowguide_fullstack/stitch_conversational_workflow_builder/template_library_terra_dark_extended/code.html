@@ -1,0 +1,498 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#1e211e",
+                    "on-primary-fixed-variant": "#2c4e38",
+                    "on-secondary-container": "#d0e8d0",
+                    "primary-fixed": "#c9eacb",
+                    "node-border": "#313530",
+                    "canvas-bg": "#121412",
+                    "sage-muted": "#5e7360",
+                    "warm-sand": "#3d3630",
+                    "on-primary-container": "#ffffff",
+                    "inverse-on-surface": "#121412",
+                    "on-background": "#e1e3df",
+                    "surface-bright": "#242724",
+                    "tertiary-container": "#554432",
+                    "secondary-fixed": "#d0e8d0",
+                    "on-primary-fixed": "#07200f",
+                    "on-tertiary-container": "#ffe0bd",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-surface": "#e1e3df",
+                    "on-secondary-fixed-variant": "#334d38",
+                    "on-tertiary": "#462a00",
+                    "primary-fixed-dim": "#aecfb0",
+                    "on-tertiary-fixed-variant": "#5a4000",
+                    "primary-container": "#334d38",
+                    "surface": "#121412",
+                    "surface-container-lowest": "#0c0f0c",
+                    "error-container": "#93000a",
+                    "primary": "#aecfb0",
+                    "surface-container-highest": "#313530",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-high": "#282b27",
+                    "secondary-container": "#3e4a3e",
+                    "surface-tint": "#aecfb0",
+                    "inverse-primary": "#4a7c59",
+                    "on-primary": "#193722",
+                    "secondary": "#baccba",
+                    "inverse-surface": "#e1e3df",
+                    "tertiary": "#ffb951",
+                    "on-surface-variant": "#c2c9bf",
+                    "on-tertiary-fixed": "#291800",
+                    "secondary-fixed-dim": "#b0ccb2",
+                    "outline-variant": "#424942",
+                    "outline": "#8c9389",
+                    "blue-slate": "#4A667E",
+                    "on-secondary": "#253428",
+                    "on-error": "#690005",
+                    "surface-dim": "#121412",
+                    "background": "#121412",
+                    "on-secondary-fixed": "#0d1f12",
+                    "surface-variant": "#424942",
+                    "tertiary-fixed-dim": "#e2c08d",
+                    "surface-container-low": "#1a1c1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.75rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "max-content-width": "1440px",
+                    "sidebar-width": "320px",
+                    "unit": "8px",
+                    "gutter": "24px",
+                    "margin-desktop": "40px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "title-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #121412;
+            color: #e1e3df;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(30, 33, 30, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(66, 73, 66, 0.5);
+        }
+        .bento-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.4);
+            border-color: #4a7c59;
+        }
+    </style>
+</head>
+<body class="bg-canvas-bg min-h-screen text-on-surface">
+<!-- TopNavBar Component -->
+<header class="bg-surface-container-lowest/80 docked full-width top-0 sticky backdrop-blur-md border-b border-node-border z-50">
+<nav class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-max-content-width mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-headline-lg text-headline-lg text-primary font-bold">FlowGuide</span>
+<div class="hidden md:flex items-center space-x-6">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors active:scale-95 duration-200" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors active:scale-95 duration-200" href="#">Workflows</a>
+<a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary hover:text-primary transition-colors active:scale-95 duration-200" href="#">Library</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors active:scale-95 duration-200" href="#">History</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="bg-surface-container border-none rounded-full pl-10 pr-4 py-2 text-label-md text-on-surface placeholder-outline focus:ring-2 focus:ring-primary/20 w-64" placeholder="Search templates..." type="text">
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+<div class="h-8 w-px bg-outline-variant mx-2"></div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md hover:opacity-90 transition-all active:scale-95">
+                    Create New
+                </button>
+<img class="w-10 h-10 rounded-full border-2 border-surface-container-high object-cover ml-2" data-alt="A professional headshot of a young creative professional with a friendly expression, soft studio lighting, clean minimalist background, modern aesthetic, high quality photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGBuA3tIqHZMO7yIZMXT2CciiPjFCnUwMUkqJMVGkwxmM5fwkFcU8eumjzoJ6Q-7r2YQGhTuQXlXLE2nc56fecYa1zPnkv6jac8Tofe1JN75GxWoW5cUTPAD8kEbvefv4x3AGf1S_YsTWbtfbPUwYs3F29INHffdOvaTUXFHFGDYHMNaQiGnS-BGMlAM-bXWleVolKeRCtVzPLpZMFKgmHWXoeIINPi_9ugg1l8uR_eKRzXDtkhMtnAg">
+</div>
+</nav>
+</header>
+<main class="max-w-max-content-width mx-auto px-margin-desktop py-12">
+<!-- Hero Section -->
+<section class="mb-16 animate-fade-in-up">
+<div class="flex flex-col md:flex-row items-end justify-between gap-6 mb-8">
+<div class="max-w-2xl">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-4">Quick Start Templates</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Choose a pre-built guide to automate your daily tasks in seconds. Simple, effective, and ready to go.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-xl border border-outline-variant text-label-md font-label-md text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+                        Filter
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-xl border border-outline-variant text-label-md font-label-md text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">sort</span>
+                        Latest
+                    </button>
+</div>
+</div>
+<!-- Bento Grid of Templates -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1: Social Media Assistant -->
+<div class="bento-card bg-surface-container-lowest p-6 rounded-xl border border-node-border flex flex-col group animate-fade-in-up">
+<div class="w-12 h-12 rounded-2xl bg-secondary-container flex items-center justify-center mb-6 text-on-secondary-container">
+<span class="material-symbols-outlined text-[28px]">share</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2">Social Media Assistant</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 flex-grow">Draft captions, schedule posts, and track engagement across all your platforms with a single click.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center border-2 border-surface-container-lowest">
+<span class="material-symbols-outlined text-[16px] text-on-primary-fixed">smart_toy</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center border-2 border-surface-container-lowest">
+<span class="material-symbols-outlined text-[16px] text-on-secondary-fixed">trending_up</span>
+</div>
+</div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-5 py-2 rounded-xl font-label-md text-label-md group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                            Add
+                        </button>
+</div>
+</div>
+<!-- Card 2: Smart Invoice Handler -->
+<div class="bento-card bg-surface-container-lowest p-6 rounded-xl border border-node-border flex flex-col group animate-fade-in-up">
+<div class="w-12 h-12 rounded-2xl bg-tertiary-container flex items-center justify-center mb-6 text-on-tertiary-container">
+<span class="material-symbols-outlined text-[28px]">receipt_long</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2">Smart Invoice Handler</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 flex-grow">Automatically extract data from PDF invoices and sync them directly with your accounting software.</p>
+<div class="flex items-center justify-between mt-auto">
+<span class="px-3 py-1 bg-warm-sand text-on-tertiary-container rounded-full text-label-sm font-label-sm">Most Popular</span>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-5 py-2 rounded-xl font-label-md text-label-md group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                            Add
+                        </button>
+</div>
+</div>
+<!-- Card 3: Email Summarizer -->
+<div class="bento-card bg-surface-container-lowest p-6 rounded-xl border border-node-border flex flex-col group animate-fade-in-up">
+<div class="w-12 h-12 rounded-2xl bg-primary-container flex items-center justify-center mb-6 text-on-primary-container">
+<span class="material-symbols-outlined text-[28px]">mark_email_unread</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2">Email Summarizer</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 flex-grow">Get a daily digest of your most important emails, filtered and summarized by priority level.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-2 text-outline font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                            5 mins setup
+                        </div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-5 py-2 rounded-xl font-label-md text-label-md group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                            Add
+                        </button>
+</div>
+</div>
+<!-- Card 4: Meeting Notes Pro -->
+<div class="bento-card bg-surface-container-lowest p-6 rounded-xl border border-node-border flex flex-col group animate-fade-in-up">
+<div class="w-12 h-12 rounded-2xl bg-secondary-container flex items-center justify-center mb-6 text-on-secondary-container">
+<span class="material-symbols-outlined text-[28px]">description</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2">Meeting Notes Pro</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 flex-grow">Transcribe meetings and automatically generate action items for your team's project board.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary">star</span>
+<span class="font-label-sm text-label-sm text-on-surface">4.9</span>
+</div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-5 py-2 rounded-xl font-label-md text-label-md group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                            Add
+                        </button>
+</div>
+</div>
+<!-- Card 5: Content Repurposer -->
+<div class="bento-card bg-surface-container-lowest p-6 rounded-xl border border-node-border flex flex-col group animate-fade-in-up">
+<div class="w-12 h-12 rounded-2xl bg-warm-sand flex items-center justify-center mb-6 text-tertiary">
+<span class="material-symbols-outlined text-[28px]">auto_fix_high</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2">Content Repurposer</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 flex-grow">Turn one blog post into five tweets, a LinkedIn update, and a newsletter snippet instantly.</p>
+<div class="flex items-center justify-between mt-auto">
+<span class="px-3 py-1 bg-primary-container text-on-primary-container rounded-full text-label-sm font-label-sm">New</span>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-5 py-2 rounded-xl font-label-md text-label-md group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                            Add
+                        </button>
+</div>
+</div>
+<!-- Card 6: Customer Support Flow -->
+<div class="bento-card bg-surface-container-lowest p-6 rounded-xl border border-node-border flex flex-col group animate-fade-in-up">
+<div class="w-12 h-12 rounded-2xl bg-secondary-container flex items-center justify-center mb-6 text-on-secondary-container">
+<span class="material-symbols-outlined text-[28px]">support_agent</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2">Customer Support Flow</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 flex-grow">Route incoming tickets to the right team member based on sentiment and urgency analysis.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-2 text-outline font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">groups</span>
+                            Team Pick
+                        </div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-5 py-2 rounded-xl font-label-md text-label-md group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                            Add
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Community Guides Section -->
+<section class="mt-24 mb-16 animate-fade-in-up">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
+<div class="lg:col-span-5 order-2 lg:order-1">
+<h2 class="font-display-lg text-display-lg text-on-surface mb-6">Community Favorites</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8">Discover top-rated workflows created and voted on by the FlowGuide community. Join thousands of users in streamlining the web.</p>
+<div class="flex gap-4">
+<button class="bg-secondary-container text-on-secondary-container px-6 py-3 rounded-xl font-label-md text-label-md hover:opacity-90 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">explore</span>
+                        Browse Community
+                    </button>
+</div>
+</div>
+<div class="lg:col-span-7 order-1 lg:order-2 rounded-xl overflow-hidden relative aspect-video shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="A vibrant digital illustration of a connected global community, neon lines connecting diverse user profiles across a stylized dark world map, representing collaboration and shared knowledge, modern tech aesthetic." src="https://lh3.googleusercontent.com/aida/AP1WRLukeMIANo124lZ10bX3eNX1E4eS2aSUFt4-fL5N8GdAASA0HTrvUJ3kIMfnMiIRBAhn4ooZ7RfViY8BnYglb1HeCFkNyldwfZmkOaGcIYvW0wXQyla42PPfGUG1SpBGhPsHPQHnJMD_hAY82MmoFZsFH4sHRmKOSAbA0j5_r2t3YGDMWTwcQjoIUhZQrHjRIDEzarV4KSHokUremIdtxyY1G18JWQ2JnudsgdGQpQOTPIYbtzJf2EWDC5TM">
+<div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent"></div>
+<div class="absolute top-8 left-8">
+<span class="px-4 py-1 bg-tertiary/20 backdrop-blur-md rounded-full text-label-sm font-label-sm mb-4 inline-block text-tertiary">Featured Community Guides</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Community Card 1: Auto-Research Pro -->
+<div class="bento-card bg-surface-container-lowest p-6 rounded-xl border border-node-border flex flex-col group animate-fade-in-up">
+<div class="w-12 h-12 rounded-2xl bg-tertiary-container flex items-center justify-center mb-6 text-on-tertiary-container">
+<span class="material-symbols-outlined text-[28px]">biotech</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2">Auto-Research Pro</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 flex-grow">Provide a topic and let the AI gather sources, extract key findings, and draft a bibliography automatically.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary">thumb_up</span>
+<span class="font-label-sm text-label-sm text-on-surface">1.2k votes</span>
+</div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-5 py-2 rounded-xl font-label-md text-label-md group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                            Add
+                        </button>
+</div>
+</div>
+<!-- Community Card 2: Slack-to-Tasks -->
+<div class="bento-card bg-surface-container-lowest p-6 rounded-xl border border-node-border flex flex-col group animate-fade-in-up">
+<div class="w-12 h-12 rounded-2xl bg-primary-container flex items-center justify-center mb-6 text-on-primary-container">
+<span class="material-symbols-outlined text-[28px]">rocket_launch</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2">Slack-to-Tasks</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 flex-grow">Automatically turn Slack messages marked with a specific emoji into Trello or Jira tasks.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary">thumb_up</span>
+<span class="font-label-sm text-label-sm text-on-surface">850 votes</span>
+</div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-5 py-2 rounded-xl font-label-md text-label-md group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                            Add
+                        </button>
+</div>
+</div>
+<!-- Community Card 3: Weekend Planner -->
+<div class="bento-card bg-surface-container-lowest p-6 rounded-xl border border-node-border flex flex-col group animate-fade-in-up">
+<div class="w-12 h-12 rounded-2xl bg-secondary-container flex items-center justify-center mb-6 text-on-secondary-container">
+<span class="material-symbols-outlined text-[28px]">event_available</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2">Weekend Planner</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 flex-grow">Scrapes local events based on your interests and populates a personalized itinerary in your calendar.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary">thumb_up</span>
+<span class="font-label-sm text-label-sm text-on-surface">2.4k votes</span>
+</div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-5 py-2 rounded-xl font-label-md text-label-md group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                            Add
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Feature Spotlight -->
+<section class="mt-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center animate-fade-in-up">
+<div class="lg:col-span-7 rounded-xl overflow-hidden relative aspect-video shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="A serene workspace with a clean wooden desk, a high-end laptop showing a blurred workflow interface, soft sunlight streaming through a window, lush green indoor plants, a cup of coffee, 8k resolution, minimalist interior design, calm and productive atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfm5AKaJdhoUC0kS6WPZIX2F2vSMKi0Dfi5DhqKTTfCg90rgD1PuEuKCZbUIGE73zxs_aLd8_z54L9bYpwFU8uUx33jeFcEBuQN5KoCUUFOt2PciB3dcTMzoEK7kNq9LjFwR-jV9mTzGaak5Y59vRD__AcPakjA6S9c_2gwt5h1Q3Aw3wX2TYaOHkR1qkgd85JAW2JwL4BOIWZ9bLGzp5yzqJ_AF1Q0hcbNrQ9-i_f4c9Iq2IXr8DrBQ">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-8 left-8 text-white max-w-md">
+<span class="px-4 py-1 bg-primary/20 backdrop-blur-md rounded-full text-label-sm font-label-sm mb-4 inline-block text-primary">Design Philosophy</span>
+<h2 class="font-headline-lg text-headline-lg">Automate with peace of mind.</h2>
+</div>
+</div>
+<div class="lg:col-span-5">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-6">Built for everyone</h2>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="w-10 h-10 shrink-0 rounded-full bg-secondary-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface mb-1">No-Code Required</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Simple English commands that anyone can understand and modify.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 shrink-0 rounded-full bg-primary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface mb-1">Instant Deployment</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Go from template to live workflow in less than 60 seconds.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 shrink-0 rounded-full bg-warm-sand flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">security</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface mb-1">Secure by Design</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Your data stays yours. We use enterprise-grade encryption at every step.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="mt-24 mb-12 bg-surface-container-high rounded-xl p-12 text-center relative overflow-hidden animate-fade-in-up">
+<div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
+<div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-96 h-96 bg-secondary/10 rounded-full blur-3xl"></div>
+<h2 class="font-display-lg text-display-lg text-on-surface mb-6">Need something custom?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10">Talk to our AI Guide and build a workflow tailored exactly to your unique business needs.</p>
+<div class="flex flex-col sm:flex-row justify-center gap-4">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-xl font-title-md text-title-md hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-primary/10">
+                    Start Chatting with AI
+                </button>
+<button class="bg-surface-container-lowest text-on-surface px-8 py-4 rounded-xl font-title-md text-title-md hover:bg-surface-container transition-all active:scale-95 border border-outline-variant">
+                    View All Templates
+                </button>
+</div>
+</section>
+</main>
+<!-- SideNavBar -->
+<aside class="fixed right-0 top-0 h-full w-[320px] bg-surface-container-lowest border-l border-node-border shadow-2xl flex flex-col p-6 z-40 translate-x-full transition-transform duration-300 lg:translate-x-0" id="guide-sidebar"><button class="absolute top-4 right-4 p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors active:scale-95" onclick="document.getElementById('guide-sidebar').classList.add('translate-x-full')"><span class="material-symbols-outlined">close</span></button>
+<div class="flex items-center gap-4 mb-10">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+</div>
+<div>
+<h3 class="font-headline-lg text-[20px] text-primary">The Guide</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Ready to build?</p>
+</div>
+</div>
+<nav class="flex-grow space-y-2">
+<a class="flex items-center gap-3 p-3 font-label-md text-label-md bg-primary-container text-primary rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">draw</span>
+                Builder
+            </a>
+<a class="flex items-center gap-3 p-3 font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">auto_awesome_motion</span>
+                Templates
+            </a>
+<a class="flex items-center gap-3 p-3 font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">hub</span>
+                Connections
+            </a>
+<a class="flex items-center gap-3 p-3 font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">data_object</span>
+                Variables
+            </a>
+<a class="flex items-center gap-3 p-3 font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="mt-auto space-y-4">
+<button class="w-full bg-primary text-on-primary py-4 rounded-xl font-label-md text-label-md hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined">forum</span>
+                Chat with AI
+            </button>
+<div class="pt-6 border-t border-node-border space-y-2">
+<a class="flex items-center gap-3 p-2 font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+                    Documentation
+                </a>
+<a class="flex items-center gap-3 p-2 font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">support_agent</span>
+                    Support
+                </a>
+</div>
+</div>
+</aside>
+<!-- Mobile Navigation Toggle -->
+<button class="fixed bottom-6 right-6 lg:hidden w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center z-50 active:scale-95 transition-transform" onclick="document.getElementById('guide-sidebar').classList.toggle('translate-x-full')">
+<span class="material-symbols-outlined">menu</span>
+</button><button class="fixed bottom-6 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center z-50 active:scale-95 transition-transform" onclick="document.getElementById('guide-sidebar').classList.remove('translate-x-full')"><span class="material-symbols-outlined">chat</span></button>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const icon = card.querySelector('.material-symbols-outlined');
+                if (icon) icon.style.transform = 'scale(1.1) rotate(5deg)';
+            });
+            card.addEventListener('mouseleave', () => {
+                const icon = card.querySelector('.material-symbols-outlined');
+                if (icon) icon.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+    </script>
+
+
+</body></html>
