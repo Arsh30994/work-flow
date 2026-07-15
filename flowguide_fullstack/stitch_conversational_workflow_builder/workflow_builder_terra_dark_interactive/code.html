@@ -1,0 +1,466 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head></head><body class="font-body-md text-on-surface"><svg class="inline-defs-container" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"></svg><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#1e211f",
+                    "on-primary-fixed-variant": "#254a65",
+                    "on-secondary-container": "#cceace",
+                    "primary-fixed": "#cbe6ff",
+                    "node-border": "#313633",
+                    "canvas-bg": "#121412",
+                    "sage-muted": "#6b8a6d",
+                    "warm-sand": "#3d3834",
+                    "on-primary-container": "#fcfcff",
+                    "inverse-on-surface": "#eff1f1",
+                    "on-background": "#e1e3e0",
+                    "surface-bright": "#1a1c1a",
+                    "tertiary-container": "#4d3d2e",
+                    "secondary-fixed": "#cceace",
+                    "on-primary-fixed": "#001e30",
+                    "on-tertiary-container": "#ffdcbd",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-surface": "#e1e3e0",
+                    "on-secondary-fixed-variant": "#334d38",
+                    "on-tertiary": "#4a2800",
+                    "primary-fixed-dim": "#a7cbeb",
+                    "on-tertiary-fixed-variant": "#ffdcbd",
+                    "primary-container": "#3f627e",
+                    "surface": "#121412",
+                    "surface-container-lowest": "#0a0c0a",
+                    "error-container": "#93000a",
+                    "primary": "#a7cbeb",
+                    "surface-container-highest": "#313633",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-high": "#272b28",
+                    "secondary-container": "#334d38",
+                    "surface-tint": "#a7cbeb",
+                    "inverse-primary": "#3c5f7b",
+                    "on-primary": "#00344d",
+                    "secondary": "#b0ceb2",
+                    "inverse-surface": "#e1e3e0",
+                    "tertiary": "#f7bb7e",
+                    "on-surface-variant": "#c2c9c2",
+                    "on-tertiary-fixed": "#2c1600",
+                    "secondary-fixed-dim": "#b0ceb2",
+                    "outline-variant": "#424942",
+                    "outline": "#8b938b",
+                    "blue-slate": "#8db0cc",
+                    "on-secondary": "#1d3522",
+                    "on-error": "#690005",
+                    "surface-dim": "#121412",
+                    "background": "#121412",
+                    "on-secondary-fixed": "#07200f",
+                    "surface-variant": "#424942",
+                    "tertiary-fixed-dim": "#f7bb7e",
+                    "surface-container-low": "#1a1c1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "max-content-width": "1440px",
+                    "sidebar-width": "320px",
+                    "unit": "8px",
+                    "gutter": "24px",
+                    "margin-desktop": "40px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "title-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    }catch(_e){}</script>
+<!-- TopNavBar (Fixed Header) -->
+<header class="bg-surface-dim/80 docked full-width top-0 sticky backdrop-blur-md border-b border-node-border z-50">
+    <div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-max-content-width mx-auto">
+        <div class="flex items-center gap-8">
+            <span class="font-headline-lg text-headline-lg text-primary font-bold tracking-tight">FlowGuide</span>
+            <nav class="hidden md:flex items-center gap-6">
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Dashboard</a>
+                <a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary" href="#">Workflows</a>
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Library</a>
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">History</a>
+            </nav>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="hidden sm:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-node-border">
+                <span class="material-symbols-outlined text-outline text-[20px] mr-2">search</span>
+                <input class="bg-transparent border-none focus:ring-0 text-label-md p-0 w-48 text-on-surface placeholder:text-outline" placeholder="Search workflows..." type="text">
+            </div>
+            <button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors active:scale-90">help</button>
+            <button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors active:scale-90">notifications</button>
+            <div class="w-8 h-8 rounded-full overflow-hidden border border-node-border ml-2">
+                <img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDx5to7qjUIvpUJqmFo-C2sgJ14iWlwLi6MxrmkRbe-bmj45x6v1VCCqBgybU8cODvqKqcMOywxYWD5DFtaqFhkN2aTCZuBolsGgpSR5hR8ME6kGojjFUHqSflaGXC58Hi83MAy05YIfQ1Fwnh8dRpqr9-eseMPYlOZtOhCUKrzo7dXL62pFcUlgVf8I2lfLTcKjBSU_qsd0pB8yqfFW21HS-Z-m9AL-UAbqRuczof4sYHW581n7tw_7w">
+            </div>
+            <button class="ml-2 bg-primary text-on-primary px-5 py-2 rounded-full font-label-md hover:opacity-90 active:scale-95 transition-all shadow-md hover:shadow-primary/20">Create New</button>
+        </div>
+    </div>
+</header>
+
+<main class="relative">
+    <div class="flex h-[calc(100vh-72px)] overflow-hidden">
+        <!-- Workflow Canvas -->
+        <div class="flex-grow relative canvas-grid bg-canvas-bg overflow-hidden cursor-grab active:cursor-grabbing" id="canvas">
+            <!-- Workflow Nodes Container -->
+            <div class="absolute inset-0 flex items-center justify-center -translate-x-[160px]" id="nodes-container">
+                <div class="flex items-center gap-12 relative" id="nodes-wrapper">
+                    <!-- Trigger Node -->
+                    <div class="relative group">
+                        <div class="w-[280px] bg-surface-container-lowest rounded-xl border border-node-border node-shadow p-5 relative z-10 hover:border-primary transition-all cursor-pointer hover:-translate-y-1">
+                            <div class="absolute top-0 left-0 bottom-0 w-2 bg-sage-muted rounded-l-xl"></div>
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-10 h-10 bg-secondary-container rounded-lg flex items-center justify-center text-secondary">
+                                    <span class="material-symbols-outlined">mail</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="font-label-sm text-outline uppercase tracking-wider">Trigger</span>
+                                    <span class="font-title-md text-on-surface">New Email Arrives</span>
+                                </div>
+                            </div>
+                            <div class="p-3 bg-surface-container-low rounded-lg border border-node-border/50">
+                                <p class="font-label-md text-on-surface-variant">Account: personal@email.com</p>
+                                <p class="font-label-md text-on-surface-variant">Folder: Inbox</p>
+                            </div>
+                        </div>
+                        <!-- Connection Line -->
+                        <div class="absolute top-1/2 left-full w-12 h-0.5 bg-outline-variant z-0 -translate-y-1/2">
+                            <div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-outline-variant"></div>
+                        </div>
+                    </div>
+                    <!---->
+                    <div class="relative group">
+                        <div class="w-[280px] bg-surface-container-lowest rounded-xl border border-node-border node-shadow p-5 relative z-10 hover:border-primary transition-all cursor-pointer hover:-translate-y-1">
+                            <div class="absolute top-0 left-0 bottom-0 w-2 bg-primary-container rounded-l-xl"></div>
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-10 h-10 bg-primary-container/20 rounded-lg flex items-center justify-center text-primary">
+                                    <span class="material-symbols-outlined">chat_bubble</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="font-label-sm text-outline uppercase tracking-wider">Action</span>
+                                    <span class="font-title-md text-on-surface">Slack Notification</span>
+                                </div>
+                            </div>
+                            <div class="p-3 bg-surface-container-low rounded-lg border border-node-border/50">
+                                <p class="font-label-md text-on-surface-variant">Channel: #general</p>
+                                <p class="font-label-md text-on-surface-variant">Message: "You have new mail!"</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add Step Button -->
+                    <button id="btn-add-step" class="w-12 h-12 bg-surface-container-lowest rounded-full border border-dashed border-outline-variant flex items-center justify-center text-outline hover:text-primary hover:border-primary hover:bg-surface-container-low transition-all shadow-sm active:scale-90 group">
+                        <span class="material-symbols-outlined group-hover:rotate-90 transition-transform">add</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Canvas Floating Controls -->
+            <div class="absolute bottom-10 left-10 flex gap-2">
+                <div class="flex bg-surface-container-lowest rounded-xl shadow-lg border border-node-border overflow-hidden p-1">
+                    <button class="p-2 hover:bg-surface-container-low rounded-lg text-on-surface-variant transition-colors active:scale-90">
+                        <span class="material-symbols-outlined">zoom_in</span>
+                    </button>
+                    <button class="p-2 hover:bg-surface-container-low rounded-lg text-on-surface-variant transition-colors active:scale-90">
+                        <span class="material-symbols-outlined">zoom_out</span>
+                    </button>
+                    <div class="w-px bg-node-border mx-1"></div>
+                    <button class="p-2 hover:bg-surface-container-low rounded-lg text-on-surface-variant transition-colors active:scale-90">
+                        <span class="material-symbols-outlined">center_focus_strong</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Floating Open Chat Button (Shown when sidebar closed) -->
+            <button id="open-guide-btn" class="fixed right-10 bottom-10 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-30 hidden">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+            </button>
+        </div>
+
+        <!-- The Guide (SideNavBar Chat Sidebar) -->
+        <aside id="guide-sidebar" class="guide-sidebar fixed right-0 top-0 h-full w-[320px] bg-surface-container-low flex flex-col z-40 border-l border-node-border shadow-2xl pt-[72px]">
+            <!-- Header -->
+            <div class="p-6 border-b border-node-border relative">
+                <!-- Close Button -->
+                <button id="close-guide-btn" class="absolute top-4 right-4 text-outline hover:text-primary hover:bg-surface-container-high w-8 h-8 rounded-full flex items-center justify-center transition-all active:scale-90">
+                    <span class="material-symbols-outlined text-[20px]">close</span>
+                </button>
+
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-xl overflow-hidden bg-primary-container/20 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                        </div>
+                        <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-surface-container-low rounded-full"></div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-label-md text-on-surface font-bold">The Guide</span>
+                        <span class="font-label-sm text-outline">Ready to build?</span>
+                    </div>
+                </div>
+                <button class="w-full py-3 px-4 bg-secondary-container text-on-secondary-container rounded-xl font-label-md flex items-center justify-center gap-2 hover:bg-secondary-container/80 transition-all active:scale-95 duration-150 shadow-sm">
+                    <span class="material-symbols-outlined text-[18px]">chat</span>
+                    Chat with AI
+                </button>
+            </div>
+            <!-- Chat / Content Area -->
+            <div class="flex-grow overflow-y-auto chat-scroll p-6 space-y-6">
+                <!-- AI Message -->
+                <div class="flex flex-col gap-2">
+                    <div class="max-w-[90%] bg-warm-sand p-4 rounded-2xl rounded-tl-none border border-node-border/30">
+                        <p class="font-body-md text-on-surface text-[14px]">I've mapped out the basic logic for your email notification. Would you like me to add a filter so you only get notified for important senders?</p>
+                    </div>
+                    <span class="font-label-sm text-outline ml-1">The Guide • 2m ago</span>
+                </div>
+                <!-- Navigation Tabs / Draggable Blocks -->
+                <div class="pt-4 space-y-1">
+                    <span class="font-label-sm text-outline uppercase tracking-widest px-2 mb-2 block">Building Block Categories</span>
+                    <div class="space-y-2">
+                        <!-- Draggable Tool Examples -->
+                        <div draggable="true" ondragstart="handleDragStart(event, 'AI Logic')" class="w-full flex items-center gap-3 px-3 py-3 bg-secondary-container text-on-secondary-container rounded-xl transition-all cursor-grab active:cursor-grabbing hover:shadow-md border border-transparent hover:border-secondary">
+                            <span class="material-symbols-outlined">draw</span>
+                            <span class="font-label-md">Builder (AI Logic)</span>
+                        </div>
+                        <div draggable="true" ondragstart="handleDragStart(event, 'Template')" class="w-full flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl transition-all active:translate-x-1 cursor-grab active:cursor-grabbing">
+                            <span class="material-symbols-outlined">auto_awesome_motion</span>
+                            <span class="font-label-md">Templates</span>
+                        </div>
+                        <div draggable="true" ondragstart="handleDragStart(event, 'Webhook')" class="w-full flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl transition-all active:translate-x-1 cursor-grab active:cursor-grabbing">
+                            <span class="material-symbols-outlined">hub</span>
+                            <span class="font-label-md">Connections</span>
+                        </div>
+                        <div draggable="true" ondragstart="handleDragStart(event, 'Variable')" class="w-full flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl transition-all active:translate-x-1 cursor-grab active:cursor-grabbing">
+                            <span class="material-symbols-outlined">data_object</span>
+                            <span class="font-label-md">Variables</span>
+                        </div>
+                        <div class="w-full flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl transition-all active:translate-x-1 cursor-pointer">
+                            <span class="material-symbols-outlined">settings</span>
+                            <span class="font-label-md">Settings</span>
+                        </div>
+                    <div class="w-full flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl transition-all active:translate-x-1 cursor-grab active:cursor-grabbing" draggable="true" ondragstart="handleDragStart(event, 'Condition')"><span class="material-symbols-outlined">call_split</span><span class="font-label-md">Condition</span></div><div class="w-full flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl transition-all active:translate-x-1 cursor-grab active:cursor-grabbing" draggable="true" ondragstart="handleDragStart(event, 'Data Transformer')"><span class="material-symbols-outlined">auto_fix_high</span><span class="font-label-md">Data Transformer</span></div><div draggable="true" ondragstart="handleDragStart(event, 'AI Agent')" class="w-full flex items-center justify-between px-3 py-3 bg-surface-container-high/50 text-on-surface rounded-xl transition-all cursor-grab active:cursor-grabbing hover:shadow-lg hover:shadow-primary/20 border border-primary/30 hover:border-primary hover:scale-[1.02] group/ai-agent">
+    <div class="flex items-center gap-3">
+        <div class="relative">
+            <span class="material-symbols-outlined text-primary group-hover/ai-agent:rotate-12 transition-transform">neurology</span>
+            <span class="material-symbols-outlined absolute -top-1 -right-1 text-[10px] text-primary animate-pulse">sparkles</span>
+        </div>
+        <span class="font-label-md font-bold">AI Agent</span>
+    </div>
+    <span class="text-[10px] font-label-sm px-1.5 py-0.5 bg-primary/10 text-primary border border-primary/20 rounded-full uppercase tracking-tighter">Pro</span>
+</div><div class="w-full flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl transition-all active:translate-x-1 cursor-grab active:cursor-grabbing" draggable="true" ondragstart="handleDragStart(event, 'Webhook')"><span class="material-symbols-outlined">webhook</span><span class="font-label-md">Webhook</span></div><div class="w-full flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl transition-all active:translate-x-1 cursor-grab active:cursor-grabbing" draggable="true" ondragstart="handleDragStart(event, 'Database')"><span class="material-symbols-outlined">storage</span><span class="font-label-md">Database</span></div><div class="w-full flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-xl transition-all active:translate-x-1 cursor-grab active:cursor-grabbing" draggable="true" ondragstart="handleDragStart(event, 'Social Media')"><span class="material-symbols-outlined">public</span><span class="font-label-md">Social Media</span></div></div>
+                </div>
+            </div>
+            <!-- Chat Footer -->
+            <div class="p-6 bg-surface-container border-t border-node-border">
+                <div class="relative group">
+                    <textarea class="w-full bg-surface-container-lowest border border-node-border rounded-2xl p-4 pr-12 focus:ring-1 focus:ring-primary font-body-md text-[14px] text-on-surface resize-none h-24 chat-scroll placeholder:text-outline" placeholder="Ask the Guide to add a step..."></textarea>
+                    <button class="absolute bottom-4 right-4 text-primary p-2 rounded-lg hover:bg-primary/10 transition-all active:scale-90">
+                        <span class="material-symbols-outlined">send</span>
+                    </button>
+                </div>
+                <div class="mt-4 flex justify-between items-center px-1">
+                    <div class="flex gap-4">
+                        <button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors active:scale-95">
+                            <span class="material-symbols-outlined text-[18px]">menu_book</span>
+                            <span class="font-label-sm">Documentation</span>
+                        </button>
+                        <button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors active:scale-95">
+                            <span class="material-symbols-outlined text-[18px]">support_agent</span>
+                            <span class="font-label-sm">Support</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- New Section: Built for Peace of Mind -->
+    <section class="relative py-24 px-margin-desktop bg-surface-dim border-t border-node-border overflow-hidden pr-[0px] md:pr-[320px]" id="peace-of-mind">
+        <div class="max-w-max-content-width mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Built for Peace of Mind</h2>
+                <p class="text-on-surface-variant max-w-2xl mx-auto">Focus on what matters most while FlowGuide handles the complexity behind the scenes.</p>
+            </div>
+            <div class="relative rounded-[2rem] overflow-hidden mb-16 shadow-2xl border border-node-border aspect-[21/9]">
+                <img alt="Serene office atmosphere" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK6sPUOiTOzgd_SH8n5O7axFEhxPj0tRxN7jPfItZBcQvLUhjMECQozcfmW9COuMVsqEY7-dLPejayMEzoWzFq7UR3rCLEM8cDC0GDYANebVyA5O2S5GiGKXXjIi26ElK6CbqM-v1q7yiVfLvhrCkXxZBE-9Vhriqd6UQmoDYQH4w46bV5Gg2yjPSQ2fwWiX5x67CNb-G5pPk5AzF1waivZOxvIoXqrq5wRiBml7jbvyn3nKYP_-uZLA">
+                <div class="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="bg-surface-container-lowest p-8 rounded-2xl border border-node-border hover:border-sage-muted transition-all duration-300 group cursor-pointer hover:-translate-y-2">
+                    <div class="w-12 h-12 bg-secondary-container/20 rounded-xl flex items-center justify-center text-secondary mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">eco</span>
+                    </div>
+                    <h3 class="font-title-md text-on-surface mb-3">Organic Scaling</h3>
+                    <p class="text-on-surface-variant font-label-md leading-relaxed">Grow your operations naturally. Our infrastructure adapts to your workflow complexity without friction or overhead.</p>
+                </div>
+                <!-- Feature Card 2 -->
+                <div class="bg-surface-container-lowest p-8 rounded-2xl border border-node-border hover:border-primary transition-all duration-300 group cursor-pointer hover:-translate-y-2">
+                    <div class="w-12 h-12 bg-primary-container/20 rounded-xl flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">energy_savings_leaf</span>
+                    </div>
+                    <h3 class="font-title-md text-on-surface mb-3">Sustainable Automation</h3>
+                    <p class="text-on-surface-variant font-label-md leading-relaxed">Efficient logic that preserves your most valuable resource: time. Automate once, thrive indefinitely.</p>
+                </div>
+                <!-- Feature Card 3 -->
+                <div class="bg-surface-container-lowest p-8 rounded-2xl border border-node-border hover:border-tertiary transition-all duration-300 group cursor-pointer hover:-translate-y-2">
+                    <div class="w-12 h-12 bg-tertiary-container/20 rounded-xl flex items-center justify-center text-tertiary mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">psychology</span>
+                    </div>
+                    <h3 class="font-title-md text-on-surface mb-3">Rooted Support</h3>
+                    <p class="text-on-surface-variant font-label-md leading-relaxed">Human-centric assistance and deep documentation to ensure you're never building in the dark.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Atmospheric Hex-->
+        <div class="absolute top-0 right-[320px] bottom-0 left-0 opacity-[0.03] pointer-events-none">
+            <svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern height="43.4" id="hexagons" patternTransform="scale(2)" patternUnits="userSpaceOnUse" width="50">
+                        <path d="M25 0 L50 14.4 L50 43.4 L25 57.8 L0 43.4 L0 14.4 Z" fill="none" stroke="currentColor" stroke-width="1"></path>
+                    </pattern>
+                </defs>
+                <rect fill="url(#hexagons)" height="100%" width="100%"></rect>
+            </svg>
+        </div>
+    </section>
+</main>
+
+<!-- Success Message (Toast) -->
+<div class="fixed bottom-10 left-1/2 -translate-x-[160px] bg-secondary-container text-on-secondary-container px-6 py-3 rounded-full shadow-lg border border-secondary flex items-center gap-3 opacity-0 translate-y-10 transition-all duration-500 pointer-events-none z-[60]" id="toast">
+    <span class="material-symbols-outlined text-[20px]" id="toast-icon">check_circle</span>
+    <span class="font-label-md" id="toast-message">Workflow saved successfully</span>
+</div>
+
+<script>
+    // --- Sidebar Toggle Logic ---
+    const guideSidebar = document.getElementById('guide-sidebar');
+    const closeGuideBtn = document.getElementById('close-guide-btn');
+    const openGuideBtn = document.getElementById('open-guide-btn');
+    const peaceOfMindSection = document.getElementById('peace-of-mind');
+
+    const toggleSidebar = (show) => {
+        if (show) {
+            guideSidebar.classList.remove('closed');
+            openGuideBtn.classList.add('hidden');
+            peaceOfMindSection.classList.add('md:pr-[320px]');
+        } else {
+            guideSidebar.classList.add('closed');
+            openGuideBtn.classList.remove('hidden');
+            peaceOfMindSection.classList.remove('md:pr-[320px]');
+        }
+    };
+
+    closeGuideBtn.addEventListener('click', () => toggleSidebar(false));
+    openGuideBtn.addEventListener('click', () => toggleSidebar(true));
+
+    // --- Drag and Drop Simulation Logic ---
+    const canvas = document.getElementById('canvas');
+    const nodesWrapper = document.getElementById('nodes-wrapper');
+    const addStepBtn = document.getElementById('btn-add-step');
+
+    function handleDragStart(e, type) {
+        e.dataTransfer.setData('text/plain', type);
+        e.dataTransfer.effectAllowed = 'move';
+    }
+
+    canvas.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        canvas.classList.add('drag-over');
+    });
+
+    canvas.addEventListener('dragleave', () => {
+        canvas.classList.remove('drag-over');
+    });
+
+    canvas.addEventListener('drop', (e) => {
+        e.preventDefault();
+        canvas.classList.remove('drag-over');
+        const type = e.dataTransfer.getData('text/plain');
+        
+        // Create new simulated node
+        createNewNode(type);
+    });
+
+    function createNewNode(title) {
+        const newNode = document.createElement('div');
+        newNode.className = 'relative group animate-in fade-in slide-in-from-right duration-500';
+        
+        // Simple HTML structure for new node
+        newNode.innerHTML = `
+            <div class="relative group">
+                <div class="w-[280px] bg-surface-container-lowest rounded-xl border border-node-border node-shadow p-5 relative z-10 hover:border-primary transition-all cursor-pointer hover:-translate-y-1">
+                    <div class="absolute top-0 left-0 bottom-0 w-2 bg-tertiary rounded-l-xl"></div>
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-10 h-10 bg-tertiary-container/20 rounded-lg flex items-center justify-center text-tertiary">
+                            <span class="material-symbols-outlined">extension</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-label-sm text-outline uppercase tracking-wider">Step</span>
+                            <span class="font-title-md text-on-surface">${title}</span>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-surface-container-low rounded-lg border border-node-border/50">
+                        <p class="font-label-md text-on-surface-variant">Configured Logic</p>
+                    </div>
+                </div>
+                <!-- Connection Line -->
+                <div class="absolute top-1/2 left-full w-12 h-0.5 bg-outline-variant z-0 -translate-y-1/2">
+                    <div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-outline-variant"></div>
+                </div>
+            </div>
+        `;
+
+        // Insert before the add button
+        nodesWrapper.insertBefore(newNode, addStepBtn);
+        triggerToast(`Added new ${title} node`);
+    }
+
+    // --- Toast / Feedback Logic ---
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toast-message');
+    const toastIcon = document.getElementById('toast-icon');
+
+    const triggerToast = (message = 'Workflow saved successfully', icon = 'check_circle') => {
+        toastMessage.innerText = message;
+        toastIcon.innerText = icon;
+        toast.classList.remove('opacity-0', 'translate-y-10');
+        toast.classList.add('opacity-100', 'translate-y-0');
+        setTimeout(() => {
+            toast.classList.add('opacity-0', 'translate-y-10');
+            toast.classList.remove('opacity-100', 'translate-y-0');
+        }, 3000);
+    };
+
+    // Attach interaction feedback to common buttons
+    document.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const text = btn.innerText.toLowerCase();
+            if (text.includes('create') || text.includes('new')) {
+                triggerToast('Initializing new project...', 'rocket_launch');
+            } else if (text.includes('chat')) {
+                triggerToast('Guide is listening...', 'auto_awesome');
+            } else if (text.includes('add')) {
+                triggerToast</script></body></html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Settings | FlowGuide</title>
+<!-- Google Fonts: Literata (Serif) & Nunito Sans (Sans) -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&amp;family=Nunito+Sans:ital,opsz,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-highest": "#333532",
+                      "on-tertiary-container": "#f8e0a8",
+                      "on-secondary": "#1e1a13",
+                      "tertiary": "#dcc48e",
+                      "secondary": "#d4ccbf",
+                      "primary": "#8ecf9e",
+                      "tertiary-fixed-dim": "#dcc48e",
+                      "on-error-container": "#ffdad8",
+                      "inverse-on-surface": "#2e3230",
+                      "error-container": "#93000a",
+                      "primary-container": "#2a6038",
+                      "on-primary": "#00391b",
+                      "on-primary-fixed-variant": "#c8e8d0",
+                      "on-tertiary-fixed-variant": "#f8e0a8",
+                      "outline": "#8e9287",
+                      "on-primary-fixed": "#002110",
+                      "surface-bright": "#373a36",
+                      "primary-fixed": "#c8e8d0",
+                      "on-tertiary": "#3e2e00",
+                      "surface-variant": "#444841",
+                      "surface-container-high": "#282b27",
+                      "on-secondary-fixed-variant": "#f0e8db",
+                      "secondary-fixed": "#f0e8db",
+                      "surface": "#1a1c19",
+                      "on-surface-variant": "#c4c8bc",
+                      "on-secondary-fixed": "#1e1a13",
+                      "on-primary-container": "#c8e8d0",
+                      "on-secondary-container": "#f0e8db",
+                      "inverse-primary": "#4a7c59",
+                      "on-error": "#690005",
+                      "primary-fixed-dim": "#8ecf9e",
+                      "surface-container-low": "#1d201c",
+                      "surface-tint": "#8ecf9e",
+                      "on-background": "#e2e3dd",
+                      "surface-container-lowest": "#0f110f",
+                      "outline-variant": "#444841",
+                      "on-surface": "#e2e3dd",
+                      "background": "#121414",
+                      "surface-container": "#212420",
+                      "inverse-surface": "#e2e3dd",
+                      "secondary-fixed-dim": "#d4ccbf",
+                      "on-tertiary-fixed": "#221a05",
+                      "error": "#ffb4ab",
+                      "tertiary-fixed": "#f8e0a8",
+                      "secondary-container": "#4a4538",
+                      "tertiary-container": "#554020",
+                      "surface-dim": "#111411"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.5rem",
+                      "lg": "1rem",
+                      "xl": "1.5rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Literata"],
+                      "display": ["Literata"],
+                      "body": ["Nunito Sans"],
+                      "label": ["Nunito Sans"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Nunito Sans', sans-serif; }
+        h1, h2, h3, h4 { font-family: 'Literata', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for earthy feel in dark mode */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1a1c19; }
+        ::-webkit-scrollbar-thumb { background: #444841; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8ecf9e; }
+        
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex overflow-hidden">
+<!-- SideNavBar Component -->
+<aside class="hidden md:flex h-screen w-64 flex-col p-4 border-r border-outline-variant/30 fixed left-0 top-0 bg-surface-container-low z-50"><button id="close-sidebar" class="absolute top-4 right-4 md:hidden w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-variant/50 text-on-surface-variant transition-colors"><span class="material-symbols-outlined">close</span></button>
+<div class="flex items-center gap-3 mb-8 px-2">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div>
+<h1 class="font-headline text-xl font-semibold text-on-surface leading-tight">FlowGuide</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Organic Automation</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/30 rounded-xl transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/30 rounded-xl transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-body text-body-md">Builder</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/30 rounded-xl transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">library_books</span>
+<span class="font-body text-body-md">Templates</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/30 rounded-xl transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-body text-body-md">History</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant/10 space-y-1">
+<!-- Settings is ACTIVE -->
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container font-bold rounded-xl transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-body text-body-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/30 rounded-xl transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-body text-body-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col md:ml-64 relative min-h-screen overflow-y-auto">
+<!-- TopNavBar Component -->
+<header class="flex justify-between items-center px-6 sticky top-0 z-40 w-full h-16 bg-surface-dim/80 backdrop-blur-md shadow-sm border-b border-outline-variant/10">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md md:block hidden">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container border-none rounded-full text-sm focus:ring-2 focus:ring-primary/40 transition-all text-on-surface placeholder:text-on-surface-variant/50" placeholder="Search settings..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant/50 text-on-surface-variant transition-colors active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant/50 text-on-surface-variant transition-colors active:scale-95">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-2"></div>
+<div class="flex items-center gap-3 pl-2">
+<img class="w-8 h-8 rounded-full border border-primary/40 object-cover" data-alt="A professional headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjPMYo4MV5jsZOCSkvwt2iEw4FvxIepK7pU9h_l3U0oM3gHAw2shgi7HYTfvRMOXX7K3wbs9Q46vu-Tlh7aUZnP6IV5szXU6q1VWGQwcYgkEzpyDE_NfWGkaiWHRVstfDwxO2LbFCJg14cbm_sZ9Nn4675Pitr6ZiuC0h9KuH8O8x9VsbzXyFrKjOaYH0wxWS1gRdjs5elLOK8TaNLSw9-368BZUYl8buE7HSRd4mvzRUzOyOajfnBbA">
+<span class="text-label-md font-medium text-on-surface hidden lg:block">Alex Rivers</span>
+</div>
+</div>
+</header>
+<!-- Settings Content -->
+<section class="p-6 md:p-10 max-w-5xl mx-auto w-full">
+<div class="mb-10">
+<h2 class="text-4xl font-display font-bold text-on-surface mb-2">Account Settings</h2>
+<p class="text-on-surface-variant text-lg">Manage your organic workflows and workspace preferences.</p>
+</div>
+<!-- Tabs Interface -->
+<div class="flex items-center gap-8 border-b border-outline-variant/30 mb-10 overflow-x-auto no-scrollbar">
+<button class="pb-4 text-primary border-b-2 border-primary font-bold transition-all whitespace-nowrap flex items-center gap-2" id="tab-profile" onclick="switchTab('profile')">
+<span class="material-symbols-outlined text-[20px]">person</span>
+                Profile
+            </button>
+<button class="pb-4 text-on-surface-variant hover:text-primary transition-all whitespace-nowrap flex items-center gap-2" id="tab-security" onclick="switchTab('security')">
+<span class="material-symbols-outlined text-[20px]">shield</span>
+                Security
+            </button>
+<button class="pb-4 text-on-surface-variant hover:text-primary transition-all whitespace-nowrap flex items-center gap-2" id="tab-billing" onclick="switchTab('billing')">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+                Billing
+            </button>
+<button class="pb-4 text-on-surface-variant hover:text-primary transition-all whitespace-nowrap flex items-center gap-2" id="tab-notifications" onclick="switchTab('notifications')">
+<span class="material-symbols-outlined text-[20px]">notifications_active</span>
+                Notifications
+            </button>
+</div>
+<!-- Profile Content Pane -->
+<div class="space-y-8 animate-in fade-in duration-500 slide-in-from-bottom-2" id="content-profile">
+<!-- Profile Header Card -->
+<div class="bg-surface-container rounded-xl p-8 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden group shadow-lg hover:-translate-y-1 transition-all duration-300 hover:shadow-xl">
+<!-- Subtle background decoration -->
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-colors"></div>
+<div class="relative">
+<div class="w-32 h-32 rounded-full border-4 border-surface shadow-2xl overflow-hidden relative group/avatar">
+<img class="w-full h-full object-cover" id="avatar-preview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9MR3UTNFfOJVFMeLTCxS6uoV_fh4ATuHe49dXs57ggU6QlxoH7EXNSoVzikhgv7Y7biVdLHKfMo9Z2LySS0XUliIoSe91s0dNBj8mTix-tT3xFxw1ukfYP1Jj3VCDccJ9KdR_ZumW2zYCesx-1AexYbbyRaj24ukocN6ekQWY3N7X8rR7Gvmnaa6t6ceXiX__V8BcQa6l71xg4ONZNqKZ0YyJK9WhDS2a6ugc55nUT69Q39F6TQ_dMg">
+<label class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-white opacity-0 group-hover/avatar:opacity-100 transition-opacity cursor-pointer" for="avatar-upload">
+<span class="material-symbols-outlined">photo_camera</span>
+<span class="text-[10px] font-bold mt-1">UPDATE</span>
+</label>
+<input accept="image/*" class="hidden" id="avatar-upload" type="file">
+</div>
+<div class="absolute -bottom-2 -right-2 bg-tertiary text-on-tertiary w-8 h-8 rounded-full flex items-center justify-center border-2 border-surface">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="flex-1 text-center md:text-left z-10">
+<h3 class="text-2xl font-display font-bold text-on-surface">Alex Rivers</h3>
+<p class="text-on-surface-variant mb-4">Senior Automation Designer • Member since April 2023</p>
+<div class="flex flex-wrap justify-center md:justify-start gap-3">
+<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold border border-primary/20">Pro Plan</span>
+<span class="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-xs font-bold border border-secondary/20">Design System Admin</span>
+</div>
+</div>
+<div class="flex gap-3 z-10">
+<button class="px-6 py-2.5 bg-primary text-on-primary rounded-xl font-bold hover:shadow-[0_0_20px_rgba(142,207,158,0.3)] transition-all active:scale-95">Save Changes</button>
+</div>
+</div>
+<!-- Account Details Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 space-y-6">
+<div class="bg-surface-container-low rounded-xl p-8 shadow-sm border border-outline-variant/10 hover:-translate-y-1 transition-all duration-300 hover:shadow-xl">
+<h4 class="text-xl font-headline font-semibold mb-6 flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-primary">badge</span>
+                            Personal Information
+                        </h4>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-sm font-bold text-on-surface-variant">Full Name</label>
+<input class="w-full p-3 bg-surface-container border border-outline-variant/20 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all text-on-surface" type="text" value="Alex Rivers">
+</div>
+<div class="space-y-2">
+<label class="text-sm font-bold text-on-surface-variant">Email Address</label>
+<input class="w-full p-3 bg-surface-container border border-outline-variant/20 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all text-on-surface" type="email" value="alex.rivers@flowguide.com">
+</div>
+<div class="space-y-2">
+<label class="text-sm font-bold text-on-surface-variant">Timezone</label>
+<select class="w-full p-3 bg-surface-container border border-outline-variant/20 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all text-on-surface">
+<option>PST (GMT-8)</option>
+<option selected="">EST (GMT-5)</option>
+<option>GMT (GMT+0)</option>
+<option>CET (GMT+1)</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-bold text-on-surface-variant">Language</label>
+<select class="w-full p-3 bg-surface-container border border-outline-variant/20 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all text-on-surface">
+<option selected="">English (US)</option>
+<option>Spanish</option>
+<option>French</option>
+</select>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-xl p-8 shadow-sm border border-outline-variant/10 hover:-translate-y-1 transition-all duration-300 hover:shadow-xl">
+<h4 class="text-xl font-headline font-semibold mb-6 flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-primary">psychology</span>
+                            Professional Bio
+                        </h4>
+<textarea class="w-full p-4 bg-surface-container border border-outline-variant/20 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all text-on-surface leading-relaxed" rows="4">Designing complex automation flows with an organic soul. Focused on bridging the gap between cold logic and human warmth at FlowGuide.</textarea>
+<div class="mt-4 flex justify-end">
+<span class="text-xs text-on-surface-variant font-medium">134 / 500 characters</span>
+</div>
+</div>
+</div>
+<!-- Sidebar Stats/Info -->
+<div class="space-y-6">
+<div class="bg-surface-container-high rounded-xl p-6 border border-outline-variant/20">
+<h4 class="text-lg font-headline font-semibold mb-4 text-on-surface">Workspace Health</h4>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-sm mb-2">
+<span class="text-on-surface-variant">Storage</span>
+<span class="font-bold text-on-surface">78%</span>
+</div>
+<div class="w-full h-2 bg-surface-variant/30 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[78%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-2">
+<span class="text-on-surface-variant">Active Nodes</span>
+<span class="font-bold text-on-surface">412 / 500</span>
+</div>
+<div class="w-full h-2 bg-surface-variant/30 rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[82%]"></div>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-2 border border-primary/50 text-primary rounded-lg font-bold text-sm hover:bg-primary/10 transition-all">Upgrade Storage</button>
+</div>
+<div class="bg-tertiary-container/10 rounded-xl p-6 border border-tertiary/10">
+<div class="flex items-start gap-4">
+<div class="p-2 bg-tertiary rounded-lg text-on-tertiary shrink-0">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+</div>
+<div>
+<h4 class="text-md font-bold text-on-tertiary-container mb-1">Terra Tips</h4>
+<p class="text-sm text-on-tertiary-container/70">Connect your calendar to enable "Natural Pause" automation for your team.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Workspace Customization Section -->
+<div class="pt-8">
+<h3 class="text-2xl font-headline font-bold text-on-surface mb-6">Workspace Customization</h3>
+<div class="bg-surface-container-low rounded-xl border border-outline-variant/10 overflow-hidden shadow-sm slide-in-from-bottom-2 hover:-translate-y-1 transition-all duration-300 hover:shadow-xl">
+<div class="relative h-64 w-full">
+<img alt="Serene modern home office workspace" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK6sPUOiTOzgd_SH8n5O7axFEhxPj0tRxN7jPfItZBcQvLUhjMECQozcfmW9COuMVsqEY7-dLPejayMEzoWzFq7UR3rCLEM8cDC0GDYANebVyA5O2S5GiGKXXjIi26ElK6CbqM-v1q7yiVfLvhrCkXxZBE-9Vhriqd6UQmoDYQH4w46bV5Gg2yjPSQ2fwWiX5x67CNb-G5pPk5AzF1waivZOxvIoXqrq5wRiBml7jbvyn3nKYP_-uZLA">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent"></div>
+<div class="absolute bottom-6 left-8">
+<h4 class="text-xl font-headline font-semibold text-white shadow-sm">Your Organic Focus Zone</h4>
+<p class="text-white/80 text-sm">Optimized for productivity and calm.</p>
+</div>
+</div>
+<div class="p-8 space-y-10">
+<!-- Ambient Themes Settings -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="space-y-4">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary">palette</span>
+<h5 class="font-bold text-on-surface">Ambient Themes</h5>
+</div>
+<p class="text-sm text-on-surface-variant mb-4">Select a sensory profile for your workspace interface.</p>
+<div class="grid grid-cols-2 gap-3">
+<button class="flex items-center gap-3 p-3 rounded-xl border-2 border-primary bg-primary/5 text-primary text-sm font-bold">
+<span class="w-4 h-4 rounded-full bg-primary"></span>
+                        Forest Twilight
+                    </button>
+<button class="flex items-center gap-3 p-3 rounded-xl border border-outline-variant/20 bg-surface-container text-on-surface-variant text-sm font-medium hover:border-primary/50 transition-colors hover:-translate-y-1 transition-all duration-300 hover:shadow-xl">
+<span class="w-4 h-4 rounded-full bg-tertiary"></span>
+                        Earthy Morning
+                    </button>
+<button class="flex items-center gap-3 p-3 rounded-xl border border-outline-variant/20 bg-surface-container text-on-surface-variant text-sm font-medium hover:border-primary/50 transition-colors hover:-translate-y-1 transition-all duration-300 hover:shadow-xl">
+<span class="w-4 h-4 rounded-full bg-secondary"></span>
+                        Deep Stone
+                    </button>
+<button class="flex items-center gap-3 p-3 rounded-xl border border-outline-variant/20 bg-surface-container text-on-surface-variant text-sm font-medium hover:border-primary/50 transition-colors hover:-translate-y-1 transition-all duration-300 hover:shadow-xl">
+<span class="w-4 h-4 rounded-full bg-error-container"></span>
+                        Autumn Moss
+                    </button>
+</div>
+</div>
+<!-- Notification Rhythm Settings -->
+<div class="space-y-4">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary">waves</span>
+<h5 class="font-bold text-on-surface">Notification Rhythm</h5>
+</div>
+<p class="text-sm text-on-surface-variant mb-4">Configure how updates flow into your environment.</p>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 bg-surface-container rounded-xl hover:-translate-y-1 transition-all duration-300 hover:shadow-xl">
+<div>
+<p class="text-sm font-bold text-on-surface">Natural Batching</p>
+<p class="text-[11px] text-on-surface-variant">Deliver non-urgent alerts in 4-hour cycles.</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container rounded-xl hover:-translate-y-1 transition-all duration-300 hover:shadow-xl">
+<div>
+<p class="text-sm font-bold text-on-surface">Deep Work Veil</p>
+<p class="text-[11px] text-on-surface-variant">Mute all visuals during active building.</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Danger Zone -->
+<div class="pt-12 border-t border-outline-variant/20">
+<h4 class="text-xl font-headline font-semibold text-error mb-4">Danger Zone</h4>
+<div class="bg-error-container/10 border border-error/20 rounded-xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div>
+<p class="font-bold text-error">Deactivate Account</p>
+<p class="text-sm text-on-surface-variant">Temporarily disable your workflows and profile access.</p>
+</div>
+<button class="px-6 py-2 bg-error text-on-error rounded-xl font-bold hover:brightness-110 transition-all active:scale-95">Deactivate</button>
+</div>
+</div>
+</div>
+<!-- Other panes (Hidden by default) -->
+<div class="hidden space-y-8 animate-in slide-in-from-bottom-2 duration-300" id="content-security">
+<div class="bg-surface-container-low rounded-xl p-8 shadow-sm border border-outline-variant/10 hover:-translate-y-1 transition-all duration-300 hover:shadow-xl">
+<h3 class="text-2xl font-headline font-bold mb-6 text-on-surface">Security Overview</h3>
+<p class="text-on-surface-variant">Security settings content would appear here, including password changes and 2FA.</p>
+</div>
+</div>
+<div class="hidden space-y-8 animate-in slide-in-from-bottom-2 duration-300" id="content-billing">
+<div class="bg-surface-container-low rounded-xl p-8 shadow-sm border border-outline-variant/10 hover:-translate-y-1 transition-all duration-300 hover:shadow-xl">
+<h3 class="text-2xl font-headline font-bold mb-6 text-on-surface">Subscription &amp; Billing</h3>
+<p class="text-on-surface-variant">Billing history and plan management sections.</p>
+</div>
+</div>
+<div class="hidden space-y-8 animate-in slide-in-from-bottom-2 duration-300" id="content-notifications">
+<div class="bg-surface-container-low rounded-xl p-8 shadow-sm border border-outline-variant/10 hover:-translate-y-1 transition-all duration-300 hover:shadow-xl">
+<h3 class="text-2xl font-headline font-bold mb-6 text-on-surface">Notification Preferences</h3>
+<p class="text-on-surface-variant">Control how and when you receive organic updates.</p>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="mt-auto py-8 px-10 flex justify-between items-center text-on-surface-variant/40 text-xs border-t border-outline-variant/10">
+<p class="">© 2024 FlowGuide Inc. Crafted with Care.</p>
+<div class="flex gap-6">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+</footer>
+</main>
+<!-- FAB -->
+<button id="open-sidebar" class="fixed bottom-28 right-8 w-14 h-14 bg-secondary text-on-secondary rounded-2xl shadow-xl hover:shadow-secondary/20 transition-all flex items-center justify-center active:scale-90 z-50 hidden"><span class="material-symbols-outlined text-3xl">chat</span></button><button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-xl hover:shadow-primary/20 transition-all flex items-center justify-center active:scale-90 z-50 group">
+<span class="material-symbols-outlined text-3xl">add</span>
+<span class="absolute right-full mr-4 px-4 py-2 bg-inverse-surface text-inverse-on-surface text-sm rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap">New Workflow</span>
+</button>
+<script>
+    function switchTab(tabName) {
+        const tabs = ['profile', 'security', 'billing', 'notifications'];
+        
+        tabs.forEach(tab => {
+            const btn = document.getElementById(`tab-${tab}`);
+            const content = document.getElementById(`content-${tab}`);
+            
+            if (tab === tabName) {
+                btn.classList.add('text-primary', 'border-b-2', 'border-primary', 'font-bold');
+                btn.classList.remove('text-on-surface-variant');
+                content.classList.remove('hidden');
+            } else {
+                btn.classList.remove('text-primary', 'border-b-2', 'border-primary', 'font-bold');
+                btn.classList.add('text-on-surface-variant');
+                content.classList.add('hidden');
+            }
+        });
+    }
+
+    const avatarUpload = document.getElementById('avatar-upload');
+    const avatarPreview = document.getElementById('avatar-preview');
+    
+    avatarUpload.addEventListener('change', function(e) {
+        if (e.target.files && e.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                avatarPreview.src = event.target.result;
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    });
+
+    document.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const originalScale = btn.style.transform;
+            btn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                btn.style.transform = originalScale;
+            }, 100);
+        });
+    });
+</script>
+
+
+<script>const sidebar = document.querySelector('aside'); const closeBtn = document.getElementById('close-sidebar'); const openBtn = document.getElementById('open-sidebar'); if(closeBtn && openBtn) { closeBtn.addEventListener('click', () => { sidebar.classList.add('hidden'); openBtn.classList.remove('hidden'); }); openBtn.addEventListener('click', () => { sidebar.classList.remove('hidden'); openBtn.classList.add('hidden'); }); }</script></body></html>
