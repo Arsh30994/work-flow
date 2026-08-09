@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/ws/:path*",
+      "destination": "${process.env.BACKEND_URL}/ws/:path*"
+    }
+  ]
+}

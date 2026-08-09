@@ -1,0 +1,45 @@
+# ==============================
+# Global .gitignore (Python & Node)
+# ==============================
+# --- Node.js ---
+node_modules/
+/.pnp
+.pnp.js
+.pnp.loader.mjs
+# Next.js build/output
+.next/
+out/
+# Vercel / Netlify
+.vercel/
+# Local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# --- Python ---
+# Virtual environment
+venv/
+.env/
+__pycache__/
+*.py[cod]
+# Distribution / packaging
+build/
+*.egg-info/
+.dist/
+# IDE & editor
+.idea/
+*.swp
+*.swo
+.vscode/
+# Pytest cache
+.pytest_cache/
+# MyPy cache
+.mypy_cache/
+# Coverage reports
+htmlcov/
+.coverage
+
+# --- OS generated files ---
+.DS_Store
+Thumbs.db

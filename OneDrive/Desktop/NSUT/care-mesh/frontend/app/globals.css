@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --background: #FCF9F8;
+
+  --surface-lowest: #FFFFFF;
+  --surface-low: #F6F3F2;
+  --surface: #F0EDED;
+  --surface-high: #EAE7E7;
+  --surface-highest: #E4E2E1;
+
+  --primary: #45614E;
+  --primary-container: #5D7A66;
+
+  --on-primary: #FFFFFF;
+  --on-primary-container: #EEFFF0;
+
+  --primary-fixed: #CAEAD2;
+  --primary-fixed-dim: #AFCEB7;
+
+  --secondary: #625E55;
+  --secondary-container: #E8E2D6;
+
+  --tertiary: #4E5F49;
+  --tertiary-container: #667860;
+
+  --text: #1B1C1C;
+  --text-muted: #424843;
+
+  --outline: #727973;
+  --outline-variant: #C2C8C1;
+
+  --error: #BA1A1A;
+  --error-container: #FFDAD6;
+
+  --font-outfit: 'Outfit', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+
+  --radius-btn: 16px;
+  --radius-input: 16px;
+  --radius-card: 24px;
+  --radius-large: 32px;
+  --radius-modal: 32px;
+
+  --shadow-soft: 0 10px 30px rgba(69, 97, 78, 0.08);
+  --shadow-card: 0 8px 24px rgba(69, 97, 78, 0.1);
+  --shadow-lift: 0 14px 36px rgba(69, 97, 78, 0.12);
+
+  --ease-calm: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 200ms;
+  --duration-base: 300ms;
+  --duration-slow: 450ms;
+}
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-inter);
+  background: var(--background);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.shadow-ambient { box-shadow: var(--shadow-soft); }
+.shadow-card-soft { box-shadow: var(--shadow-card); }
+.shadow-lift { box-shadow: var(--shadow-lift); }
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: var(--shadow-soft);
+}
+
+.progress-ring__circle {
+  transition: stroke-dashoffset 0.6s var(--ease-calm);
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: dot-pulse 1.4s ease-in-out infinite;
+  display: inline-block;
+}
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dot-pulse {
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
+
+.risk-green  { background: #caead2; color: #052012; }
+.risk-yellow { background: #fff3cd; color: #7d5a00; }
+.risk-red    { background: #ffdad6; color: #93000a; }
+
+.gradient-text {
+  background: linear-gradient(135deg, #45614e 0%, #5d7a66 50%, #afceb7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.shimmer-skeleton {
+  background: linear-gradient(90deg, #f0eded 25%, #e4e2e1 50%, #f0eded 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #f0eded; }
+::-webkit-scrollbar-thumb { background: #afceb7; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #45614e; }
+
+canvas { display: block; }
+
+/* Soft organic ambient blobs (homepage) */
+.ambient-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.45;
+  pointer-events: none;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ambient-blob-a {
+    animation: blob-drift-a 28s ease-in-out infinite;
+  }
+  .ambient-blob-b {
+    animation: blob-drift-b 34s ease-in-out infinite;
+  }
+  .ambient-blob-c {
+    animation: blob-drift-c 40s ease-in-out infinite;
+  }
+}
+
+@keyframes blob-drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, -30px) scale(1.08); }
+}
+@keyframes blob-drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-50px, 20px) scale(1.05); }
+}
+@keyframes blob-drift-c {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, 40px) scale(0.95); }
+}
