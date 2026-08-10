@@ -1,16 +1,49 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { PublicNav } from '@/components/navigation/PublicNav';
 import { Badge } from '@/components/ui/Badge';
 import { Card } from '@/components/ui/Card';
-import { DEMO_MEDICINES } from '@/data/demo';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { medicineService } from '@/services';
+import type { Medicine } from '@/types';
 
 export default function MedicineDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const m = DEMO_MEDICINES.find((x) => x.id === id) || DEMO_MEDICINES[0];
+  const [m, setM] = useState<Medicine | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    medicineService
+      .get(id)
+      .then((row) => {
+        if (!cancelled) setM(row);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [id]);
+
+  if (loading || !m) {
+    return (
+      <div className="min-h-screen bg-background pb-24">
+        <PublicNav />
+        <div className="max-w-2xl mx-auto px-5 pt-8 space-y-4">
+          <Skeleton className="h-10 w-1/2" />
+          <Skeleton className="h-24 w-full rounded-card" />
+          <Skeleton className="h-24 w-full rounded-card" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background pb-24">

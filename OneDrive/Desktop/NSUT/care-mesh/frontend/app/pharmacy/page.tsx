@@ -1,13 +1,15 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { PublicNav } from '@/components/navigation/PublicNav';
 import { FadeIn } from '@/components/motion/FadeIn';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
-import { DEMO_PRODUCTS } from '@/data/demo';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { pharmacyService } from '@/services';
+import type { PharmacyProduct } from '@/types';
 import { cn } from '@/lib/cn';
 
 const CATS = ['All', 'Pain relief', 'Cold & flu', 'Digestive care', 'First aid', 'Vitamins & supplements', 'Personal care'];
@@ -15,11 +17,24 @@ const CATS = ['All', 'Pain relief', 'Cold & flu', 'Digestive care', 'First aid',
 export default function PharmacyPage() {
   const [cat, setCat] = useState('All');
   const [cart, setCart] = useState<string[]>([]);
+  const [products, setProducts] = useState<PharmacyProduct[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const products = useMemo(
-    () => DEMO_PRODUCTS.filter((p) => cat === 'All' || p.category === cat),
-    [cat],
-  );
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    pharmacyService
+      .list(cat)
+      .then((rows) => {
+        if (!cancelled) setProducts(rows);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [cat]);
 
   return (
     <div className="min-h-screen bg-background pb-24">
@@ -57,39 +72,47 @@ export default function PharmacyPage() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {products.map((p, i) => (
-            <FadeIn key={p.id} delay={i * 0.04}>
-              <Card padding="none" className="overflow-hidden h-full flex flex-col">
-                <Link href={`/pharmacy/${p.id}`}>
-                  <img src={p.image} alt="" className="w-full h-40 object-cover" />
-                </Link>
-                <div className="p-4 flex flex-col flex-1">
-                  <p className="text-label-sm text-on-surface-variant mb-1">{p.category}</p>
-                  <Link href={`/pharmacy/${p.id}`} className="font-display text-body-lg mb-2 hover:text-primary">
-                    {p.name}
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[0, 1, 2, 3].map((i) => (
+              <Skeleton key={i} className="h-64 w-full rounded-card" />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {products.map((p, i) => (
+              <FadeIn key={p.id} delay={i * 0.04}>
+                <Card padding="none" className="overflow-hidden h-full flex flex-col">
+                  <Link href={`/pharmacy/${p.id}`}>
+                    <img src={p.image} alt="" className="w-full h-40 object-cover" />
                   </Link>
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {p.prescription && <Badge variant="error">Rx</Badge>}
-                    <Badge variant={p.available ? 'success' : 'muted'}>
-                      {p.available ? 'In stock' : 'Unavailable'}
-                    </Badge>
+                  <div className="p-4 flex flex-col flex-1">
+                    <p className="text-label-sm text-on-surface-variant mb-1">{p.category}</p>
+                    <Link href={`/pharmacy/${p.id}`} className="font-display text-body-lg mb-2 hover:text-primary">
+                      {p.name}
+                    </Link>
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {p.prescription && <Badge variant="error">Rx</Badge>}
+                      <Badge variant={p.available ? 'success' : 'muted'}>
+                        {p.available ? 'In stock' : 'Unavailable'}
+                      </Badge>
+                    </div>
+                    <div className="mt-auto flex items-center justify-between gap-2">
+                      <span className="font-display">₹{p.price}</span>
+                      <Button
+                        size="sm"
+                        disabled={!p.available || cart.includes(p.id)}
+                        onClick={() => setCart((c) => [...c, p.id])}
+                      >
+                        {cart.includes(p.id) ? 'Added' : 'Add to cart'}
+                      </Button>
+                    </div>
                   </div>
-                  <div className="mt-auto flex items-center justify-between gap-2">
-                    <span className="font-display">₹{p.price}</span>
-                    <Button
-                      size="sm"
-                      disabled={!p.available || cart.includes(p.id)}
-                      onClick={() => setCart((c) => [...c, p.id])}
-                    >
-                      {cart.includes(p.id) ? 'Added' : 'Add to cart'}
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            </FadeIn>
-          ))}
-        </div>
+                </Card>
+              </FadeIn>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

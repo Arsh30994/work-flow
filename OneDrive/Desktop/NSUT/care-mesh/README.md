@@ -33,26 +33,25 @@ Our challenge is to prototype an **always‑on, privacy‑first digital companio
    │                               │
    │                               ├─► assess_risk (Python)
    │                               ├─► Gemini (AI) (green/yellow only)
-   │                               └─► PostgreSQL (sessions, risk_events, resources)
+   │                               └─► MongoDB (sessions, risk_events — no raw chat text)
    │
    └─► (WebSocket) /ws/:session_id ──► FastAPI WS endpoint
                                │
                                └─► admin_alerts WS (broadcast to admins)
 ```
-- **Frontend**: Next.js (React, TypeScript), Tailwind CSS, custom hooks `useSpeechToText` & `useTextToSpeech`.
-- **Backend**: FastAPI, uvicorn, `google‑generativeai` SDK, in‑memory rate limiter, PostgreSQL via SQLAlchemy.
-- **Deployment**: Vercel (frontend) with `vercel.json` rewrite for WS; Render (backend) with `render.yaml`.
+- **Frontend**: Next.js (React, TypeScript), Tailwind CSS, Web Speech API.
+- **Backend**: FastAPI, uvicorn, `google‑generativeai` SDK, MongoDB via Motor.
+- **Deployment**: Vercel (frontend); Render (backend) with `render.yaml`.
 
 ---
 ## Tech Stack
 | Layer | Technology |
 |------|------------|
 | Front‑end | Next.js (React 18), TypeScript, Tailwind CSS, Web Speech API |
-| Back‑end | FastAPI, Python 3.11, `google‑generativeai` (Gemini‑2.0‑flash), SQLAlchemy |
-| Database | PostgreSQL (privacy‑by‑design schema) |
-| DevOps | Vercel (frontend), Render (backend), Docker (optional) |
-| Testing | Pytest (backend), Jest/React Testing Library (frontend) |
-| CI | GitHub Actions (lint, unit tests) |
+| Back‑end | FastAPI, Python 3.11+, `google‑generativeai`, Motor |
+| Database | **MongoDB** (privacy-by-design collections) |
+| DevOps | Vercel (frontend), Render (backend), Docker (optional Mongo) |
+| Testing | Pytest (backend) |
 
 ---
 ## Functional vs. Mocked / Roadmap
@@ -63,7 +62,7 @@ Our challenge is to prototype an **always‑on, privacy‑first digital companio
 | Voice call (speech‑to‑text / text‑to‑speech) | **Fully functional** – browser APIs with fallback UI. |
 | Emergency banner & resource card UI | **Fully functional** – static seeded resources. |
 | Admin dashboard alert & “Take Over” button | **Functional UI**, but **human counsellor integration is mocked** (no real chat handoff). |
-| Persistent session storage & risk event logging | **Functional** – data saved in PostgreSQL, but no analytics dashboard yet. |
+| Persistent session storage & risk event logging | **Functional** – MongoDB collections `sessions` / `risk_events` (no raw chat text). |
 | Rate limiting | **Implemented** – simple in‑memory limiter (30 req/min). |
 | Multi‑language support beyond Hindi/English | **Roadmap** – add language packs & translation layer. |
 | Telehealth video call | **Roadmap** – integrate Twilio/Agora. |
@@ -71,7 +70,7 @@ Our challenge is to prototype an **always‑on, privacy‑first digital companio
 
 ---
 ## Privacy & Safety Design Decisions
-- **Privacy‑by‑Design DB** – `sessions` and `risk_events` are separate tables; no raw user messages are stored.
+- **Privacy‑by‑Design DB** – MongoDB `sessions` and `risk_events` are separate; no raw user messages are stored.
 - **Never store PHI** – only `session_id`, risk tier, and timestamps are logged.
 - **Risk‑tier enforcement** – red‑tier never calls Gemini; a static handoff message is sent.
 - **Emergency banner** – present on *every* page, providing local crisis numbers.
@@ -84,8 +83,8 @@ Our challenge is to prototype an **always‑on, privacy‑first digital companio
 ### Prerequisites
 - **Node ≥ 20** (for the frontend)
 - **Python ≥ 3.11** and **pip**
-- **Docker Desktop** (optional, for PostgreSQL) or a local PostgreSQL server
-- **Google Gemini API key** (free tier) – set as `GEMINI_API_KEY`
+- **MongoDB** (local or [Atlas](https://www.mongodb.com/atlas)) — or Docker below
+- **Google Gemini API key** – set as `GEMINI_API_KEY`
 
 ### 1. Clone the repo
 ```bash
@@ -104,17 +103,10 @@ pip install -r backend/requirements.txt
 
 # Copy env template and fill in values
 cp backend/.env.example backend/.env
-# Edit backend/.env → set GEMINI_API_KEY, DATABASE_URL, ALLOWED_ORIGINS
+# Edit backend/.env → set GEMINI_API_KEY, MONGODB_URI, ALLOWED_ORIGINS
 
-# Run PostgreSQL (quick Docker command)
-
-docker run --name care-mesh-db -e POSTGRES_PASSWORD=pass -e POSTGRES_USER=user -e POSTGRES_DB=caremesh -p 5432:5432 -d postgres:15
-
-# Create tables
-python -c "from backend.models import Base, engine; Base.metadata.create_all(bind=engine)"
-
-# Seed sample resources (optional)
-python backend/seed_resources.py
+# Run MongoDB (quick Docker command)
+docker run --name soulcare-mongo -p 27017:27017 -d mongo:7
 
 # Start the API server
 uvicorn backend.main:app --reload --port 8000

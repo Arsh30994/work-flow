@@ -69,21 +69,22 @@ def _match_keywords(message: str, patterns: List[Tuple[re.Pattern, str]]) -> boo
 
 
 def assess_risk(message: str) -> Literal["green", "yellow", "red"]:
-    """Assess the risk tier of a free-text *message*.
+    """Assess the risk tier of a free-text *message*."""
+    return assess_risk_detail(message)["risk"]
 
-    Steps:
-    1. Red tier - if any red keyword matches, return "red".
-    2. Yellow tier - if a yellow keyword matches (and no red), return "yellow".
-    3. Otherwise return "green".
-    """
+
+def assess_risk_detail(message: str) -> dict:
+    """Return ``{"risk": ..., "triggered_rule": str | None}`` (no raw message stored)."""
     normalized = " ".join(message.split()).strip()
     if not normalized:
-        return "green"
-    if _match_keywords(normalized, _RED_KEYWORDS):
-        return "red"
-    if _match_keywords(normalized, _YELLOW_KEYWORDS):
-        return "yellow"
-    return "green"
+        return {"risk": "green", "triggered_rule": None}
+    for regex, label in _RED_KEYWORDS:
+        if regex.search(normalized):
+            return {"risk": "red", "triggered_rule": f"keyword:{label}"}
+    for regex, label in _YELLOW_KEYWORDS:
+        if regex.search(normalized):
+            return {"risk": "yellow", "triggered_rule": f"keyword:{label}"}
+    return {"risk": "green", "triggered_rule": None}
 
 
-__all__ = ["assess_risk"]
+__all__ = ["assess_risk", "assess_risk_detail"]

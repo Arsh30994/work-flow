@@ -1,6 +1,8 @@
 /** Demo seed data — clearly labelled in UI as demo / not verified. */
 
-export const DEMO_THERAPISTS = [
+import type { HelpItem, Medicine, PharmacyProduct, Resource, Therapist } from '@/types';
+
+export const DEMO_THERAPISTS: Therapist[] = [
   {
     id: 'sarah-jenkins',
     name: 'Dr. Sarah Jenkins',
@@ -13,6 +15,7 @@ export const DEMO_THERAPISTS = [
     tags: ['Anxiety', 'Mindfulness'],
     bio: 'Empathetic listener specializing in stress management and mindfulness.',
     img: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop',
+    demo: true,
   },
   {
     id: 'rahul-menon',
@@ -26,6 +29,7 @@ export const DEMO_THERAPISTS = [
     tags: ['Relationships', 'Stress'],
     bio: 'Warm, practical support for work stress, relationships, and life transitions.',
     img: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop',
+    demo: true,
   },
   {
     id: 'priya-nair',
@@ -39,6 +43,7 @@ export const DEMO_THERAPISTS = [
     tags: ['Trauma', 'PTSD'],
     bio: 'Gentle, paced work with trauma, grief, and emotional regulation.',
     img: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=400&fit=crop',
+    demo: true,
   },
   {
     id: 'aisha-khan',
@@ -52,10 +57,11 @@ export const DEMO_THERAPISTS = [
     tags: ['Sleep', 'Anxiety'],
     bio: 'Helps people rebuild restful routines and quiet racing thoughts at night.',
     img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop',
+    demo: true,
   },
 ];
 
-export const DEMO_RESOURCES = [
+export const DEMO_RESOURCES: Resource[] = [
   {
     id: 'four-count-breathing',
     title: 'Four-count breathing for a racing mind',
@@ -63,6 +69,7 @@ export const DEMO_RESOURCES = [
     duration: '6 min',
     category: 'Meditation',
     image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&h=500&fit=crop',
+    demo: true,
   },
   {
     id: 'sleep-wind-down',
@@ -71,6 +78,7 @@ export const DEMO_RESOURCES = [
     duration: '10 min',
     category: 'Sleep',
     image: 'https://images.unsplash.com/photo-1515894203077-9cd36032142f?w=800&h=500&fit=crop',
+    demo: true,
   },
   {
     id: 'grounding-5-4-3-2-1',
@@ -79,6 +87,7 @@ export const DEMO_RESOURCES = [
     duration: '4 min',
     category: 'Therapy Tools',
     image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=500&fit=crop',
+    demo: true,
   },
   {
     id: 'morning-stretch',
@@ -87,10 +96,11 @@ export const DEMO_RESOURCES = [
     duration: '3 min',
     category: 'Movement',
     image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&h=500&fit=crop',
+    demo: true,
   },
 ];
 
-export const DEMO_HELP = [
+export const DEMO_HELP: HelpItem[] = [
   {
     id: 'tele-manas',
     name: 'Tele-MANAS',
@@ -99,6 +109,7 @@ export const DEMO_HELP = [
     distance: 'Nationwide',
     address: '24/7 Government of India mental health helpline',
     phone: '14416',
+    demo: false,
   },
   {
     id: 'icall',
@@ -108,6 +119,7 @@ export const DEMO_HELP = [
     distance: 'Nationwide',
     address: 'Psychosocial helpline (TISS)',
     phone: '9152987821',
+    demo: false,
   },
   {
     id: 'vandrevala',
@@ -117,6 +129,7 @@ export const DEMO_HELP = [
     distance: 'Nationwide',
     address: '24/7 crisis support',
     phone: '9999666555',
+    demo: false,
   },
   {
     id: 'demo-clinic-delhi',
@@ -126,10 +139,11 @@ export const DEMO_HELP = [
     distance: '2.4 km',
     address: 'Demo address — Connaught Place, New Delhi',
     phone: '011-00000000',
+    demo: true,
   },
 ];
 
-export const DEMO_MEDICINES = [
+export const DEMO_MEDICINES: Medicine[] = [
   {
     id: 'paracetamol',
     name: 'Paracetamol',
@@ -138,6 +152,7 @@ export const DEMO_MEDICINES = [
     dosage: 'Typically 500–1000 mg as needed. Follow your pack / clinician.',
     sideEffects: 'Rare at recommended doses; liver risk if overdosed.',
     prescription: false,
+    demo: true,
   },
   {
     id: 'ors',
@@ -147,6 +162,7 @@ export const DEMO_MEDICINES = [
     dosage: 'Dissolve one sachet in clean water as directed on pack.',
     sideEffects: 'Generally well tolerated.',
     prescription: false,
+    demo: true,
   },
   {
     id: 'cetirizine',
@@ -156,10 +172,11 @@ export const DEMO_MEDICINES = [
     dosage: 'Often 10 mg once daily for adults. Confirm with a pharmacist.',
     sideEffects: 'Drowsiness in some people.',
     prescription: false,
+    demo: true,
   },
 ];
 
-export const DEMO_PRODUCTS = [
+export const DEMO_PRODUCTS: PharmacyProduct[] = [
   {
     id: 'bandages',
     name: 'Assorted adhesive bandages',
@@ -168,6 +185,7 @@ export const DEMO_PRODUCTS = [
     prescription: false,
     available: true,
     image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=400&fit=crop',
+    demo: true,
   },
   {
     id: 'vitamin-d',
@@ -177,6 +195,7 @@ export const DEMO_PRODUCTS = [
     prescription: false,
     available: true,
     image: 'https://images.unsplash.com/photo-1550572017-edd951aa8f72?w=400&h=400&fit=crop',
+    demo: true,
   },
   {
     id: 'antiseptic',
@@ -186,6 +205,7 @@ export const DEMO_PRODUCTS = [
     prescription: false,
     available: true,
     image: 'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=400&h=400&fit=crop',
+    demo: true,
   },
   {
     id: 'ibuprofen',
@@ -195,8 +215,9 @@ export const DEMO_PRODUCTS = [
     prescription: false,
     available: false,
     image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400&h=400&fit=crop',
+    demo: true,
   },
 ];
 
-export const BOOKING_TIMES = ['10:00', '11:30', '12:00', '14:00', '16:30'];
-export const UNAVAILABLE_TIMES = ['11:30'];
+export const BOOKING_TIMES: string[] = ['10:00', '11:30', '12:00', '14:00', '16:30'];
+export const UNAVAILABLE_TIMES: string[] = ['11:30'];

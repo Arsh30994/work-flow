@@ -1,27 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { Check, Calendar, ArrowLeft } from 'lucide-react';
 import { PublicNav } from '@/components/navigation/PublicNav';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
-
-interface Booking {
-  therapistId: string;
-  therapistName: string;
-  date: string;
-  time: string;
-  type: string;
-}
+import { Skeleton } from '@/components/ui/Skeleton';
+import { useBookingConfirmation } from '@/hooks';
+import type { Booking } from '@/types';
 
 function buildIcs(b: Booking) {
   const start = new Date(b.date);
   const [hh, mm] = b.time.split(':').map(Number);
-  start.setHours(hh, mm, 0, 0);
+  if (!Number.isNaN(hh)) start.setHours(hh, mm || 0, 0, 0);
   const end = new Date(start.getTime() + 50 * 60 * 1000);
-  const fmt = (d: Date) =>
-    d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const fmt = (d: Date) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
@@ -30,23 +25,16 @@ function buildIcs(b: Booking) {
     `DTSTART:${fmt(start)}`,
     `DTEND:${fmt(end)}`,
     `SUMMARY:SoulCare session with ${b.therapistName}`,
-    `DESCRIPTION:${b.type}`,
+    `DESCRIPTION:${b.sessionType}`,
     'END:VEVENT',
     'END:VCALENDAR',
   ].join('\r\n');
 }
 
-export default function BookingConfirmationPage() {
-  const [booking, setBooking] = useState<Booking | null>(null);
-
-  useEffect(() => {
-    try {
-      const raw = sessionStorage.getItem('soulcare_booking');
-      if (raw) setBooking(JSON.parse(raw));
-    } catch {
-      setBooking(null);
-    }
-  }, []);
+function ConfirmationInner() {
+  const params = useSearchParams();
+  const bookingId = params.get('id');
+  const { booking, loading, error } = useBookingConfirmation(bookingId);
 
   const downloadIcs = () => {
     if (!booking) return;
@@ -76,8 +64,16 @@ export default function BookingConfirmationPage() {
         </div>
         <h1 className="font-display text-headline-lg text-on-surface mb-8">Your session is booked</h1>
 
-        {booking ? (
+        {loading ? (
+          <Skeleton className="h-24 w-full rounded-card mb-8" />
+        ) : booking ? (
           <Card className="text-left mb-8 space-y-4">
+            {booking.bookingId && (
+              <div>
+                <p className="text-label-sm text-on-surface-variant">Confirmation</p>
+                <p className="font-mono text-sm">{booking.bookingId}</p>
+              </div>
+            )}
             <div>
               <p className="text-label-sm text-on-surface-variant">Therapist</p>
               <p className="font-display text-body-lg">{booking.therapistName}</p>
@@ -88,11 +84,13 @@ export default function BookingConfirmationPage() {
             </div>
             <div>
               <p className="text-label-sm text-on-surface-variant">Session type</p>
-              <p className="font-display text-body-lg">{booking.type}</p>
+              <p className="font-display text-body-lg">{booking.sessionType}</p>
             </div>
           </Card>
         ) : (
-          <p className="text-on-surface-variant mb-8">No booking found. Choose a therapist to schedule.</p>
+          <p className="text-on-surface-variant mb-8">
+            {error || 'No booking found. Choose a therapist to schedule.'}
+          </p>
         )}
 
         <div className="flex flex-col gap-3">
@@ -109,5 +107,22 @@ export default function BookingConfirmationPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function BookingConfirmationPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-background">
+          <PublicNav />
+          <div className="max-w-lg mx-auto px-5 pt-16">
+            <Skeleton className="h-16 w-16 rounded-full mx-auto mb-6" />
+          </div>
+        </div>
+      }
+    >
+      <ConfirmationInner />
+    </Suspense>
   );
 }

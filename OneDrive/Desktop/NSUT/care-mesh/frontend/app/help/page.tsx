@@ -1,13 +1,15 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Phone, MapPin, Search, BadgeCheck } from 'lucide-react';
 import { PublicNav } from '@/components/navigation/PublicNav';
 import { FadeIn } from '@/components/motion/FadeIn';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
-import { DEMO_HELP } from '@/data/demo';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { helpService } from '@/services';
+import type { HelpItem } from '@/types';
 import { cn } from '@/lib/cn';
 
 const FILTERS = ['All', 'Emergency', 'Therapist', 'Free / Govt', 'Hospital', 'De-addiction', 'Helpline'];
@@ -15,16 +17,36 @@ const FILTERS = ['All', 'Emergency', 'Therapist', 'Free / Govt', 'Hospital', 'De
 export default function HelpPage() {
   const [q, setQ] = useState('');
   const [filter, setFilter] = useState('All');
+  const [raw, setRaw] = useState<HelpItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    const handle = setTimeout(() => {
+      helpService
+        .list({ q: q || undefined })
+        .then((rows) => {
+          if (!cancelled) setRaw(rows);
+        })
+        .finally(() => {
+          if (!cancelled) setLoading(false);
+        });
+    }, q ? 200 : 0);
+    return () => {
+      cancelled = true;
+      clearTimeout(handle);
+    };
+  }, [q]);
 
   const items = useMemo(() => {
-    return DEMO_HELP.filter((h) => {
+    return raw.filter((h) => {
       if (filter === 'Emergency' && h.category !== 'Helpline') return false;
       if (filter === 'Free / Govt' && !['Helpline'].includes(h.category)) return false;
       if (['Therapist', 'Helpline', 'Hospital', 'De-addiction'].includes(filter) && h.category !== filter) return false;
-      if (q && !`${h.name} ${h.address}`.toLowerCase().includes(q.toLowerCase())) return false;
       return true;
     });
-  }, [q, filter]);
+  }, [raw, filter]);
 
   return (
     <div className="min-h-screen bg-background pb-24">
@@ -65,44 +87,46 @@ export default function HelpPage() {
         </div>
 
         <div className="space-y-4 max-w-2xl">
-          {items.map((h, i) => (
-            <FadeIn key={h.id} delay={i * 0.04}>
-              <Card>
-                <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
-                  <div>
-                    <h2 className="font-display text-headline-md text-on-surface flex items-center gap-2">
-                      {h.name}
-                      {h.verified && (
-                        <span className="inline-flex items-center gap-1 text-label-sm text-primary">
-                          <BadgeCheck size={16} /> Verified
-                        </span>
-                      )}
-                    </h2>
-                    <p className="text-label-md text-on-surface-variant mt-1">{h.category} · {h.distance}</p>
+          {loading
+            ? [0, 1, 2].map((i) => <Skeleton key={i} className="h-36 w-full rounded-card" />)
+            : items.map((h, i) => (
+              <FadeIn key={h.id} delay={i * 0.04}>
+                <Card>
+                  <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+                    <div>
+                      <h2 className="font-display text-headline-md text-on-surface flex items-center gap-2">
+                        {h.name}
+                        {h.verified && (
+                          <span className="inline-flex items-center gap-1 text-label-sm text-primary">
+                            <BadgeCheck size={16} /> Verified
+                          </span>
+                        )}
+                      </h2>
+                      <p className="text-label-md text-on-surface-variant mt-1">{h.category} · {h.distance}</p>
+                    </div>
                   </div>
-                </div>
-                <p className="text-body-md text-on-surface-variant mb-5 flex items-start gap-2">
-                  <MapPin size={16} className="mt-0.5 shrink-0" /> {h.address}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <a href={`tel:${h.phone}`}>
-                    <Button size="sm">
-                      <Phone size={14} /> Call now
-                    </Button>
-                  </a>
-                  <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.address)}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <Button size="sm" variant="secondary">
-                      Directions
-                    </Button>
-                  </a>
-                </div>
-              </Card>
-            </FadeIn>
-          ))}
+                  <p className="text-body-md text-on-surface-variant mb-5 flex items-start gap-2">
+                    <MapPin size={16} className="mt-0.5 shrink-0" /> {h.address}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <a href={`tel:${h.phone}`}>
+                      <Button size="sm">
+                        <Phone size={14} /> Call now
+                      </Button>
+                    </a>
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.address)}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Button size="sm" variant="secondary">
+                        Directions
+                      </Button>
+                    </a>
+                  </div>
+                </Card>
+              </FadeIn>
+            ))}
         </div>
       </div>
     </div>

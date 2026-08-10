@@ -1,55 +1,54 @@
 'use client';
 
-import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { Star, ArrowLeft } from 'lucide-react';
 import { PublicNav } from '@/components/navigation/PublicNav';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
-import { DEMO_THERAPISTS, BOOKING_TIMES, UNAVAILABLE_TIMES } from '@/data/demo';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { useBooking } from '@/hooks';
 import { cn } from '@/lib/cn';
-
-function nextDays(count: number) {
-  const days = [];
-  const now = new Date();
-  for (let i = 0; i < count; i++) {
-    const d = new Date(now);
-    d.setDate(now.getDate() + i);
-    days.push(d);
-  }
-  return days;
-}
 
 export default function TherapistDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const router = useRouter();
-  const therapist = DEMO_THERAPISTS.find((t) => t.id === id) || DEMO_THERAPISTS[0];
-  const days = useMemo(() => nextDays(7), []);
-  const [open, setOpen] = useState(false);
-  const [dayIdx, setDayIdx] = useState(1);
-  const [time, setTime] = useState<string | null>(null);
+  const {
+    therapist,
+    loading,
+    days,
+    open,
+    setOpen,
+    dayIdx,
+    setDayIdx,
+    time,
+    setTime,
+    slotsForDay,
+    bookingLoading,
+    confirm,
+  } = useBooking(id);
 
-  const confirm = () => {
-    if (!time) return;
-    const day = days[dayIdx];
-    const payload = {
-      therapistId: therapist.id,
-      therapistName: therapist.name,
-      date: day.toISOString(),
-      time,
-      type: '50-minute video session',
-    };
-    sessionStorage.setItem('soulcare_booking', JSON.stringify(payload));
-    router.push('/booking/confirmation');
-  };
+  if (loading || !therapist) {
+    return (
+      <div className="min-h-screen bg-background pb-24">
+        <PublicNav />
+        <div className="max-w-3xl mx-auto px-5 md:px-10 pt-8 space-y-4">
+          <Skeleton className="h-64 w-full rounded-large" />
+          <Skeleton className="h-8 w-2/3" />
+          <Skeleton className="h-4 w-full" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background pb-24">
       <PublicNav />
       <div className="max-w-3xl mx-auto px-5 md:px-10 pt-8">
-        <Link href="/therapists" className="inline-flex items-center gap-2 text-label-md text-on-surface-variant hover:text-primary mb-6">
+        <Link
+          href="/therapists"
+          className="inline-flex items-center gap-2 text-label-md text-on-surface-variant hover:text-primary mb-6"
+        >
           <ArrowLeft size={16} /> Back to therapists
         </Link>
 
@@ -58,7 +57,9 @@ export default function TherapistDetailPage() {
             <img src={therapist.img} alt="" className="w-full h-full object-cover" />
           </div>
           <div className="p-8">
-            <Badge variant="demo" className="mb-4">Demo data — not a verified licence</Badge>
+            <Badge variant="demo" className="mb-4">
+              Demo data — not a verified licence
+            </Badge>
             <h1 className="font-display text-headline-lg text-on-surface">{therapist.name}</h1>
             <p className="text-body-lg text-on-surface-variant mt-1">{therapist.title}</p>
             <p className="flex items-center gap-1 mt-3 text-label-md">
@@ -67,7 +68,9 @@ export default function TherapistDetailPage() {
             <p className="text-body-md text-on-surface-variant mt-5 mb-6">{therapist.bio}</p>
             <div className="flex flex-wrap gap-2 mb-8">
               {therapist.tags.map((t) => (
-                <Badge key={t} variant="sage">{t}</Badge>
+                <Badge key={t} variant="sage">
+                  {t}
+                </Badge>
               ))}
             </div>
             <div className="flex items-center justify-between gap-4">
@@ -85,7 +88,10 @@ export default function TherapistDetailPage() {
             <button
               key={d.toISOString()}
               type="button"
-              onClick={() => { setDayIdx(i); setTime(null); }}
+              onClick={() => {
+                setDayIdx(i);
+                setTime(null);
+              }}
               className={cn(
                 'shrink-0 rounded-2xl px-4 py-3 min-w-[72px] text-center border transition-colors',
                 dayIdx === i
@@ -93,7 +99,9 @@ export default function TherapistDetailPage() {
                   : 'bg-surface-low border-outline-variant/30 text-on-surface',
               )}
             >
-              <div className="text-label-sm opacity-80">{d.toLocaleDateString(undefined, { weekday: 'short' })}</div>
+              <div className="text-label-sm opacity-80">
+                {d.toLocaleDateString(undefined, { weekday: 'short' })}
+              </div>
               <div className="font-display text-lg">{d.getDate()}</div>
             </button>
           ))}
@@ -101,30 +109,35 @@ export default function TherapistDetailPage() {
 
         <p className="text-label-md text-on-surface mb-3">Available times</p>
         <div className="grid grid-cols-3 gap-2 mb-8">
-          {BOOKING_TIMES.map((t) => {
-            const disabled = UNAVAILABLE_TIMES.includes(t);
+          {slotsForDay.map((slot) => {
+            const disabled = !slot.available;
             return (
               <button
-                key={t}
+                key={slot.time}
                 type="button"
                 disabled={disabled}
-                onClick={() => setTime(t)}
+                onClick={() => setTime(slot.time)}
                 className={cn(
                   'rounded-xl py-3 text-label-md border transition-colors min-h-[44px]',
                   disabled && 'opacity-35 cursor-not-allowed',
-                  time === t
+                  time === slot.time
                     ? 'bg-primary-fixed border-primary text-primary'
                     : 'bg-surface-lowest border-outline-variant/40 hover:bg-surface-low',
                 )}
               >
-                {t}
+                {slot.time}
               </button>
             );
           })}
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3">
-          <Button className="flex-1" disabled={!time} onClick={confirm}>
+          <Button
+            className="flex-1"
+            disabled={!time || bookingLoading}
+            loading={bookingLoading}
+            onClick={() => void confirm()}
+          >
             Confirm booking
           </Button>
           <Button className="flex-1" variant="secondary" onClick={() => setOpen(false)}>

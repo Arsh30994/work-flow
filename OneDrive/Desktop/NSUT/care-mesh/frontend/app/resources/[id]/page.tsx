@@ -1,16 +1,49 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { ArrowLeft, Clock } from 'lucide-react';
 import { PublicNav } from '@/components/navigation/PublicNav';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
-import { DEMO_RESOURCES } from '@/data/demo';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { resourceService } from '@/services';
+import type { Resource } from '@/types';
 
 export default function ResourceDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const r = DEMO_RESOURCES.find((x) => x.id === id) || DEMO_RESOURCES[0];
+  const [r, setR] = useState<Resource | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    resourceService
+      .get(id)
+      .then((row) => {
+        if (!cancelled) setR(row);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [id]);
+
+  if (loading || !r) {
+    return (
+      <div className="min-h-screen bg-background pb-24">
+        <PublicNav />
+        <div className="max-w-2xl mx-auto px-5 md:px-10 pt-8 space-y-4">
+          <Skeleton className="h-56 w-full rounded-large" />
+          <Skeleton className="h-8 w-3/4" />
+          <Skeleton className="h-4 w-full" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background pb-24">

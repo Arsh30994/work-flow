@@ -1,22 +1,38 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Search } from 'lucide-react';
 import { PublicNav } from '@/components/navigation/PublicNav';
 import { Badge } from '@/components/ui/Badge';
 import { Card } from '@/components/ui/Card';
-import { DEMO_MEDICINES } from '@/data/demo';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { medicineService } from '@/services';
+import type { Medicine } from '@/types';
 
 export default function MedicinesPage() {
   const [q, setQ] = useState('');
-  const items = useMemo(
-    () =>
-      DEMO_MEDICINES.filter((m) =>
-        `${m.name} ${m.generic} ${m.category}`.toLowerCase().includes(q.toLowerCase()),
-      ),
-    [q],
-  );
+  const [items, setItems] = useState<Medicine[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    const handle = setTimeout(() => {
+      medicineService
+        .list(q || undefined)
+        .then((rows) => {
+          if (!cancelled) setItems(rows);
+        })
+        .finally(() => {
+          if (!cancelled) setLoading(false);
+        });
+    }, q ? 200 : 0);
+    return () => {
+      cancelled = true;
+      clearTimeout(handle);
+    };
+  }, [q]);
 
   return (
     <div className="min-h-screen bg-background pb-24">
@@ -41,19 +57,21 @@ export default function MedicinesPage() {
         </label>
 
         <div className="space-y-4 max-w-2xl">
-          {items.map((m) => (
-            <Link key={m.id} href={`/medicines/${m.id}`}>
-              <Card hover className="mb-4">
-                <div className="flex justify-between gap-3">
-                  <div>
-                    <h2 className="font-display text-headline-md">{m.name}</h2>
-                    <p className="text-label-md text-on-surface-variant mt-1">{m.generic}</p>
+          {loading
+            ? [0, 1, 2].map((i) => <Skeleton key={i} className="h-24 w-full rounded-card mb-4" />)
+            : items.map((m) => (
+              <Link key={m.id} href={`/medicines/${m.id}`}>
+                <Card hover className="mb-4">
+                  <div className="flex justify-between gap-3">
+                    <div>
+                      <h2 className="font-display text-headline-md">{m.name}</h2>
+                      <p className="text-label-md text-on-surface-variant mt-1">{m.generic}</p>
+                    </div>
+                    <Badge variant="sand">{m.category}</Badge>
                   </div>
-                  <Badge variant="sand">{m.category}</Badge>
-                </div>
-              </Card>
-            </Link>
-          ))}
+                </Card>
+              </Link>
+            ))}
         </div>
       </div>
     </div>

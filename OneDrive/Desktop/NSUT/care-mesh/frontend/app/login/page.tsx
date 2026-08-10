@@ -5,18 +5,28 @@ import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import { authService } from '@/services';
 
 export default function LoginPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      sessionStorage.setItem('soulcare_user', 'alex');
+    setError(null);
+    const fd = new FormData(e.currentTarget);
+    const email = String(fd.get('email') || '');
+    const password = String(fd.get('password') || '');
+    try {
+      const result = await authService.login(email, password);
+      authService.persist(result);
       router.push('/dashboard');
-    }, 600);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Sign-in failed');
+      setLoading(false);
+    }
   };
 
   return (
@@ -38,6 +48,7 @@ export default function LoginPage() {
         <form onSubmit={onSubmit} className="space-y-4">
           <Input label="Email address" type="email" name="email" required placeholder="you@email.com" autoComplete="email" />
           <Input label="Password" type="password" name="password" required placeholder="••••••••" autoComplete="current-password" />
+          {error && <p className="text-label-md text-error">{error}</p>}
           <Button type="submit" className="w-full" loading={loading}>
             Sign in →
           </Button>

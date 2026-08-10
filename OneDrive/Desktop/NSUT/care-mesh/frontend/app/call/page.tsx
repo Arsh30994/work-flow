@@ -5,13 +5,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Mic, MicOff, PhoneOff, Phone, Volume2, VolumeX } from 'lucide-react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import { callApi } from '@/services';
+import type { RiskTier as ChatRisk } from '@/types';
 
 const BreathingOrb3D = dynamic(() => import('../components/BreathingOrb3D'), { ssr: false });
 
 type CallStatus = 'disconnected' | 'connecting' | 'connected' | 'listening' | 'speaking' | 'ended';
-type RiskTier = 'green' | 'yellow' | 'red' | 'idle';
-
-const BACKEND = process.env.NEXT_PUBLIC_BACKEND_URL ?? 'http://localhost:8000';
+type RiskTier = ChatRisk | 'idle';
 
 export default function CallPage() {
   const [status, setStatus] = useState<CallStatus>('disconnected');
@@ -62,12 +62,7 @@ export default function CallPage() {
     setResponse('Thinking...');
 
     try {
-      const res = await fetch(`${BACKEND}/api/v1/chat`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text }),
-      });
-      const data = await res.json();
+      const data = await callApi.turn(text);
       const newTier: RiskTier = data.risk ?? 'green';
       setTier(newTier);
       setResponse(data.reply);

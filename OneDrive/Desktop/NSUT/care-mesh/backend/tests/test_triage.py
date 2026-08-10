@@ -1,5 +1,5 @@
 import pytest
-from services.triage import assess_risk
+from backend.services.triage import assess_risk
 
 # --- Green tier examples (low risk) ---
 GREEN_MESSAGES = [

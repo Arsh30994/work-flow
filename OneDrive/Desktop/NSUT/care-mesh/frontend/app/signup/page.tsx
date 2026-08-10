@@ -5,18 +5,29 @@ import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import { authService } from '@/services';
 
 export default function SignupPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      sessionStorage.setItem('soulcare_user', 'alex');
+    setError(null);
+    const fd = new FormData(e.currentTarget);
+    const name = String(fd.get('name') || '');
+    const email = String(fd.get('email') || '');
+    const password = String(fd.get('password') || '');
+    try {
+      const result = await authService.signup(name, email, password);
+      authService.persist(result);
       router.push('/dashboard');
-    }, 600);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Signup failed');
+      setLoading(false);
+    }
   };
 
   return (
@@ -31,6 +42,7 @@ export default function SignupPage() {
           <Input label="Display name" name="name" required placeholder="Alex" />
           <Input label="Email" type="email" name="email" required placeholder="you@email.com" />
           <Input label="Password" type="password" name="password" required placeholder="••••••••" minLength={8} />
+          {error && <p className="text-label-md text-error">{error}</p>}
           <Button type="submit" className="w-full" loading={loading}>
             Create account
           </Button>

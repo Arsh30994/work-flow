@@ -1,13 +1,15 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Clock, Search } from 'lucide-react';
 import { PublicNav } from '@/components/navigation/PublicNav';
 import { FadeIn } from '@/components/motion/FadeIn';
 import { Badge } from '@/components/ui/Badge';
 import { Card } from '@/components/ui/Card';
-import { DEMO_RESOURCES } from '@/data/demo';
+import { ResourceSkeleton } from '@/components/ui/Skeleton';
+import { resourceService } from '@/services';
+import type { Resource } from '@/types';
 import { cn } from '@/lib/cn';
 
 const CATEGORIES = ['All', 'Meditation', 'Nutrition', 'Sleep', 'Movement', 'Therapy Tools'];
@@ -15,13 +17,26 @@ const CATEGORIES = ['All', 'Meditation', 'Nutrition', 'Sleep', 'Movement', 'Ther
 export default function ResourcesPage() {
   const [q, setQ] = useState('');
   const [cat, setCat] = useState('All');
+  const [items, setItems] = useState<Resource[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const items = useMemo(() => {
-    return DEMO_RESOURCES.filter((r) => {
-      if (cat !== 'All' && r.category !== cat) return false;
-      if (q && !`${r.title} ${r.description}`.toLowerCase().includes(q.toLowerCase())) return false;
-      return true;
-    });
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    const handle = setTimeout(() => {
+      resourceService
+        .list({ category: cat, q: q || undefined })
+        .then((rows) => {
+          if (!cancelled) setItems(rows);
+        })
+        .finally(() => {
+          if (!cancelled) setLoading(false);
+        });
+    }, q ? 200 : 0);
+    return () => {
+      cancelled = true;
+      clearTimeout(handle);
+    };
   }, [q, cat]);
 
   return (
@@ -69,31 +84,39 @@ export default function ResourcesPage() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {items.map((r, i) => (
-            <FadeIn key={r.id} delay={i * 0.05}>
-              <Link href={`/resources/${r.id}`}>
-                <Card hover padding="none" className="overflow-hidden h-full">
-                  <div className="h-44 overflow-hidden">
-                    <img src={r.image} alt="" className="w-full h-full object-cover transition-transform duration-300 hover:scale-[1.03]" />
-                  </div>
-                  <div className="p-7">
-                    <h2 className="font-display text-headline-md text-on-surface mb-3">{r.title}</h2>
-                    <p className="text-body-md text-on-surface-variant mb-5">{r.description}</p>
-                    <div className="flex items-center gap-3 text-label-md text-on-surface-variant">
-                      <span className="inline-flex items-center gap-1">
-                        <Clock size={14} /> {r.duration}
-                      </span>
-                      <Badge variant="sand">{r.category}</Badge>
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[0, 1, 2, 3].map((i) => (
+              <ResourceSkeleton key={i} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {items.map((r, i) => (
+              <FadeIn key={r.id} delay={i * 0.05}>
+                <Link href={`/resources/${r.id}`}>
+                  <Card hover padding="none" className="overflow-hidden h-full">
+                    <div className="h-44 overflow-hidden">
+                      <img src={r.image} alt="" className="w-full h-full object-cover transition-transform duration-300 hover:scale-[1.03]" />
                     </div>
-                  </div>
-                </Card>
-              </Link>
-            </FadeIn>
-          ))}
-        </div>
+                    <div className="p-7">
+                      <h2 className="font-display text-headline-md text-on-surface mb-3">{r.title}</h2>
+                      <p className="text-body-md text-on-surface-variant mb-5">{r.description}</p>
+                      <div className="flex items-center gap-3 text-label-md text-on-surface-variant">
+                        <span className="inline-flex items-center gap-1">
+                          <Clock size={14} /> {r.duration}
+                        </span>
+                        <Badge variant="sand">{r.category}</Badge>
+                      </div>
+                    </div>
+                  </Card>
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
+        )}
 
-        {items.length === 0 && (
+        {!loading && items.length === 0 && (
           <div className="text-center py-16">
             <h3 className="font-display text-headline-md mb-2">Nothing matches yet</h3>
             <p className="text-on-surface-variant">Try another word, or browse a category.</p>

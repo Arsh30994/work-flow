@@ -3,8 +3,8 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, MicOff } from 'lucide-react';
-
-type RiskTier = 'green' | 'yellow' | 'red';
+import { chatService } from '@/services';
+import type { RiskTier } from '@/types';
 
 interface VoiceMicOrbProps {
   onTranscript?: (text: string) => void;
@@ -12,8 +12,6 @@ interface VoiceMicOrbProps {
   onCrisisDetected?: () => void;
   sidebarOpen?: boolean;
 }
-
-const BACKEND = process.env.NEXT_PUBLIC_BACKEND_URL ?? 'http://localhost:8000';
 
 export default function VoiceMicOrb({
   onTranscript,
@@ -35,12 +33,7 @@ export default function VoiceMicOrb({
   const sendTranscript = useCallback(async (text: string) => {
     onTranscript?.(text);
     try {
-      const res = await fetch(`${BACKEND}/api/v1/chat`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text }),
-      });
-      const data = await res.json();
+      const data = await chatService.send(text);
       const newTier: RiskTier = data.risk ?? 'green';
       setTier(newTier);
       onRiskChange?.(newTier);

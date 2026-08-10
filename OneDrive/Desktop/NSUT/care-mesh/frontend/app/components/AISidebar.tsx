@@ -3,8 +3,8 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, Mic, MicOff, Phone } from 'lucide-react';
-
-type RiskTier = 'green' | 'yellow' | 'red';
+import { chatService } from '@/services';
+import type { RiskTier } from '@/types';
 
 interface Message {
   id: number;
@@ -19,8 +19,6 @@ interface AISidebarProps {
   onRiskChange?: (tier: RiskTier) => void;
   onCrisisDetected?: () => void;
 }
-
-const BACKEND = process.env.NEXT_PUBLIC_BACKEND_URL ?? 'http://localhost:8000';
 
 const WELCOME: Message = {
   id: 0,
@@ -54,12 +52,7 @@ export default function AISidebar({ isOpen, onClose, onRiskChange, onCrisisDetec
     setLoading(true);
 
     try {
-      const res = await fetch(`${BACKEND}/api/v1/chat`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text }),
-      });
-      const data = await res.json();
+      const data = await chatService.send(text);
       const tier: RiskTier = data.risk ?? 'green';
       const aiMsg: Message = { id: Date.now() + 1, role: 'ai', content: data.reply, risk: tier };
       setMessages(prev => [...prev, aiMsg]);

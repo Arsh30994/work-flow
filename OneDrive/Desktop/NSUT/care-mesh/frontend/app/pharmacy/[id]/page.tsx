@@ -1,16 +1,52 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { PublicNav } from '@/components/navigation/PublicNav';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
-import { DEMO_PRODUCTS } from '@/data/demo';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { pharmacyService } from '@/services';
+import type { PharmacyProduct } from '@/types';
 
 export default function PharmacyProductPage() {
   const { id } = useParams<{ id: string }>();
-  const p = DEMO_PRODUCTS.find((x) => x.id === id) || DEMO_PRODUCTS[0];
+  const [p, setP] = useState<PharmacyProduct | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    pharmacyService
+      .get(id)
+      .then((row) => {
+        if (!cancelled) setP(row);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [id]);
+
+  if (loading || !p) {
+    return (
+      <div className="min-h-screen bg-background pb-24">
+        <PublicNav />
+        <div className="max-w-3xl mx-auto px-5 pt-8 grid md:grid-cols-2 gap-8">
+          <Skeleton className="aspect-square w-full rounded-large" />
+          <div className="space-y-3 md:pt-10">
+            <Skeleton className="h-8 w-2/3" />
+            <Skeleton className="h-4 w-1/3" />
+            <Skeleton className="h-10 w-24" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background pb-24">

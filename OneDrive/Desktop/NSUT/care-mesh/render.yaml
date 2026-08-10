@@ -7,7 +7,9 @@ buildCommand: pip install -r backend/requirements.txt
 startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
 
 # Environment variables (set in Render dashboard)
-# DATABASE_URL - PostgreSQL connection string
+# MONGODB_URI - MongoDB connection string (Atlas or self-hosted)
+# MONGODB_DB - Database name (default: soulcare)
 # GEMINI_API_KEY - Google Gemini API key
-# ALLOWED_ORIGINS - Comma-separated list of allowed origins for CORS (e.g., https://your-frontend.vercel.app)
-# BACKEND_URL - Full URL where this service is reachable (e.g., https://care-mesh-backend.onrender.com)
+# ADMIN_TOKEN - Token for admin API header X-Admin-Token
+# ALLOWED_ORIGINS - Comma-separated list of allowed origins for CORS
+# BACKEND_URL - Full URL where this service is reachable
