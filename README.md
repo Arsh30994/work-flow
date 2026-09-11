@@ -120,4 +120,4 @@ The default branch also contains copies and unrelated projects. They are not req
 - `OneDrive/Desktop/NSUT/care-mesh/` — **SoulCare** (formerly Care Mesh): a separate Next.js + FastAPI mental-health companion prototype. See that folder’s README.
 - Many committed Python site-packages and `__pycache__` files at the repo root from local installs
 
-Only `cursor/soulcare-platform` is published as the default branch (`origin/HEAD`).
+Documented app source of truth for this README is `main`. The previous default branch `cursor/soulcare-platform` still exists and does not include these docs until it is updated.
